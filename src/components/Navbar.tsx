@@ -1,52 +1,44 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
-import type { User } from '@supabase/supabase-js'
+import { logoutUser } from '@/lib/actions/auth'
 
 interface BentoNavbarProps {
-  user: User
+  user: { email: string; fullName?: string | null }
   currentMonth: string
 }
 
 export function BentoNavbar({ user, currentMonth }: BentoNavbarProps) {
-  const router = useRouter()
-  const supabase = createClient()
-  
-  const initials = (user.user_metadata?.full_name as string)
+  const initials = (user.fullName || user.email)
     ?.split(' ')
     .map((n: string) => n[0])
     .slice(0, 2)
     .join('')
-    .toUpperCase() || user.email?.[0].toUpperCase() || 'U'
-
-  async function handleLogout() {
-    await supabase.auth.signOut()
-    router.push('/login')
-    router.refresh()
-  }
+    .toUpperCase() || 'U'
 
   return (
-    <nav className="flex justify-between items-center mb-12 border-b-4 border-black pb-6">
+    <nav className="flex justify-between items-center mb-10">
       <div className="flex items-center gap-10">
-        <div className="text-2xl font-black uppercase tracking-tighter border-4 border-black px-4 py-1 bg-yellow-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-          FINTRACK<span className="text-white">.AI</span>
+        <div className="bento-logo">
+          <div className="bento-logo-dot" />
+          fintrack.ai
         </div>
         
-        <div className="hidden md:block bg-black text-white px-4 py-1 font-black uppercase text-xs tracking-widest">
-          {currentMonth}
+        <div className="hidden md:flex items-center gap-2 bg-white dark:bg-[#141414] px-4 py-2 rounded-full border border-black/5 dark:border-white/5 shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+          <span className="text-[11px] font-bold uppercase tracking-wider text-gray-500">{currentMonth}</span>
         </div>
       </div>
 
-      <div className="flex items-center gap-6">
+      <div className="flex items-center gap-4">
         <div className="hidden sm:block text-right">
-          <p className="text-sm font-black uppercase leading-none mb-1">{user.user_metadata?.full_name || 'User'}</p>
-          <p className="text-[10px] font-bold text-gray-500 uppercase">{user.email}</p>
+          <p className="text-xs font-bold leading-none mb-1">{user.fullName || 'User'}</p>
+          <p className="text-[10px] text-gray-400 font-medium">{user.email}</p>
         </div>
         
         <button
-          onClick={handleLogout}
-          className="w-14 h-14 bg-cyan-300 border-4 border-black font-black flex items-center justify-center shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none transition-all cursor-pointer"
+          onClick={() => logoutUser()}
+          className="w-11 h-11 rounded-2xl bg-indigo-600 text-white font-bold flex items-center justify-center hover:scale-105 active:scale-95 transition-all shadow-lg shadow-indigo-200 cursor-pointer"
+          title="Klik untuk keluar"
         >
           {initials}
         </button>

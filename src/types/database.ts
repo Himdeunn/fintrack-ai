@@ -2,26 +2,26 @@ export type TransactionType = 'income' | 'expense'
 
 export interface Transaction {
   id: string
-  user_id: string
-  type: TransactionType
+  userId: string
+  type: TransactionType // 'income' | 'expense'
   amount: number
   category: string
-  description?: string
-  date: string
-  created_at: string
+  description?: string | null
+  date: string | Date
+  createdAt: string | Date
 }
 
-export interface Profile {
+export interface User {
   id: string
-  full_name?: string
-  email?: string
-  created_at: string
+  email: string
+  fullName?: string | null
+  createdAt: string | Date
 }
 
 export interface AiSummary {
   id: string
-  user_id: string
+  userId: string
   month: string
   summary: string
-  created_at: string
+  createdAt: string | Date
 }

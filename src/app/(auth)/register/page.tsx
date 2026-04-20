@@ -1,108 +1,93 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
+import { registerUser } from '@/lib/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 export default function RegisterPage() {
-  const router = useRouter()
-  const supabase = createClient()
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function handleRegister(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
     setError('')
 
+    const formData = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formData)
+
     try {
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: { data: { full_name: fullName } },
-      })
-
-      if (error) {
-        setError(error.message)
-        setLoading(false)
-        return
-      }
-
-      router.push('/dashboard')
-      router.refresh()
+      await registerUser(data)
     } catch (err: any) {
-      console.error('Register error:', err)
-      setError(err.message || 'Terjadi kesalahan sistem')
+      setError(err.message || 'Gagal mendaftar')
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-cyan-300">
-      <div className="bento-card max-w-md w-full bg-white">
-        <div className="mb-10 text-center">
-          <div className="inline-block bg-black text-white font-black px-4 py-1 mb-4 text-sm uppercase tracking-widest">
-            New Citizen
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[#f8f9fa] dark:bg-[#0a0a0a]">
+      <div className="bento-card max-w-md w-full shadow-2xl p-10 bg-white dark:bg-[#141414]">
+        <div className="mb-10">
+          <div className="bento-logo mb-6">
+            <div className="bento-logo-dot" />
+            fintrack.ai
           </div>
-          <h1 className="text-5xl font-black uppercase tracking-tighter leading-none">Join Us</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-black dark:text-white">Mulai Langkahmu</h1>
+          <p className="text-gray-500 dark:text-gray-400">Bergabunglah dan mulai kelola keuanganmu dengan cerdas.</p>
         </div>
 
-        <form onSubmit={handleRegister} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label className="font-black uppercase text-xs">Your Name</Label>
+            <Label htmlFor="fullName">Nama Lengkap</Label>
             <Input 
-              placeholder="FULL NAME HERE"
-              className="h-14 border-4 border-black rounded-none font-bold placeholder:text-gray-300 focus-visible:ring-0 focus-visible:translate-x-1 focus-visible:translate-y-1 transition-transform"
-              value={fullName} 
-              onChange={e => setFullName(e.target.value)} 
+              name="fullName"
+              id="fullName" 
+              placeholder="Tegar Arjuna"
+              className="h-12 bg-gray-50 dark:bg-zinc-900 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500"
               required 
             />
           </div>
           <div className="space-y-2">
-            <Label className="font-black uppercase text-xs">Email</Label>
+            <Label htmlFor="email">Email</Label>
             <Input 
+              name="email"
+              id="email" 
               type="email" 
-              placeholder="YOUR@EMAIL.COM"
-              className="h-14 border-4 border-black rounded-none font-bold placeholder:text-gray-300 focus-visible:ring-0 focus-visible:translate-x-1 focus-visible:translate-y-1 transition-transform"
-              value={email} 
-              onChange={e => setEmail(e.target.value)} 
+              placeholder="kamu@email.com"
+              className="h-12 bg-gray-50 dark:bg-zinc-900 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500"
               required 
             />
           </div>
           <div className="space-y-2">
-            <Label className="font-black uppercase text-xs">Password</Label>
+            <Label htmlFor="password">Password</Label>
             <Input 
+              name="password"
+              id="password" 
               type="password" 
-              placeholder="MIN. 6 CHARS"
-              className="h-14 border-4 border-black rounded-none font-bold placeholder:text-gray-300 focus-visible:ring-0 focus-visible:translate-x-1 focus-visible:translate-y-1 transition-transform"
-              value={password} 
-              onChange={e => setPassword(e.target.value)} 
+              placeholder="Min. 6 karakter"
+              className="h-12 bg-gray-50 dark:bg-zinc-900 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500"
               minLength={6} 
               required 
             />
           </div>
           
           {error && (
-            <div className="p-4 bg-red-500 text-white font-black border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] uppercase text-xs">
+            <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium border border-red-100">
               {error}
             </div>
           )}
 
-          <Button type="submit" className="neo-btn w-full h-16 bg-yellow-300 text-xl" disabled={loading}>
-            {loading ? 'CREATING...' : 'SIGN UP →'}
+          <Button type="submit" className="w-full h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-lg shadow-lg shadow-indigo-200 transition-all active:scale-[0.98]" disabled={loading}>
+            {loading ? 'Mendaftarkan...' : 'Buat Akun Sekarang →'}
           </Button>
         </form>
 
-        <div className="mt-10 text-center font-bold">
-          ALREADY JOINED?{' '}
-          <Link href="/login" className="underline decoration-4 hover:bg-cyan-300 transition-colors">LOG IN</Link>
+        <div className="mt-10 text-center text-sm text-gray-500">
+          Sudah punya akun?{' '}
+          <Link href="/login" className="text-indigo-600 font-bold hover:underline">Masuk</Link>
         </div>
       </div>
     </div>

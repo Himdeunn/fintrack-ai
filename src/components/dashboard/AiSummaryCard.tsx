@@ -2,17 +2,19 @@
 
 import { useEffect } from 'react'
 import { useAiSummary } from '@/hooks/useAiSummary'
+import { Sparkles } from 'lucide-react'
 
 function renderMarkdown(text: string) {
   return text
     .split('\n')
     .filter((l) => l.trim())
     .map((line, i) => {
+      // Basic formatting for **bold** text
       const parts = line.split(/\*\*(.*?)\*\*/)
       return (
-        <p key={i} className="mb-4 text-sm font-bold leading-tight uppercase">
+        <p key={i} className="mb-4 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
           {parts.map((part, j) => (
-            j % 2 === 1 ? <span key={j} className="bg-yellow-300 px-1 border-2 border-black">{part}</span> : part
+            j % 2 === 1 ? <strong key={j} className="text-indigo-600 dark:text-indigo-400 font-bold">{part}</strong> : part
           ))}
         </p>
       )
@@ -24,45 +26,49 @@ export function BentoAiCard({ month }: { month: string }) {
 
   useEffect(() => {
     if (month) fetchSummary(month)
-  }, [month])
+  }, [month, fetchSummary])
 
   return (
-    <div className="bento-card h-full flex flex-col bg-white border-4">
-      <div className="flex justify-between items-start mb-8">
+    <div className="bento-card h-full flex flex-col group">
+      <div className="flex justify-between items-start mb-6">
         <div>
-          <div className="bento-label bg-magenta-500 bg-pink-500">AI Intelligence</div>
-          <h3 className="text-4xl font-black uppercase tracking-tighter leading-none mt-2">Gemini Reports</h3>
-        </div>
-        <div className="bg-black text-white p-4 font-black text-2xl shadow-[4px_4px_0px_0px_rgba(255,255,0,1)]">
-          AI
+          <div className="bento-label flex items-center gap-1.5">
+            <Sparkles className="w-3 h-3 text-indigo-500" />
+            AI Financial Assistant
+          </div>
+          <h3 className="text-xl font-extrabold tracking-tight text-black dark:text-white">Analisis Cerdas</h3>
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto pr-4 border-l-4 border-black pl-4">
+      <div className="flex-1 overflow-auto pr-2 custom-scrollbar">
         {loading ? (
-          <div className="h-40 flex items-center justify-center">
-            <div className="text-2xl font-black uppercase animate-pulse">Analyzing Data...</div>
+          <div className="h-full flex flex-col items-center justify-center space-y-3 py-10">
+            <div className="w-8 h-8 border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin" />
+            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400">Menganalisis Transaksi...</p>
           </div>
         ) : error ? (
-          <div className="p-4 bg-red-500 text-white font-black border-4 border-black">
-            {error}
+          <div className="p-4 bg-red-50 text-red-600 rounded-2xl text-xs font-bold border border-red-100">
+            Gagal mendapatkan analisis: {error}
           </div>
         ) : summary ? (
-          <div className="space-y-2">
+          <div className="space-y-1">
             {renderMarkdown(summary)}
           </div>
         ) : (
-          <p className="font-black uppercase text-gray-300">Select Month</p>
+          <div className="h-full flex items-center justify-center text-gray-300 italic text-sm">
+            Pilih bulan untuk memulai analisis AI
+          </div>
         )}
       </div>
 
-      <div className="mt-8 pt-6 border-t-4 border-black flex justify-between items-center">
-        <span className="text-[10px] font-black uppercase">Model: Gemini 1.5 Flash</span>
+      <div className="mt-6 pt-6 border-t border-gray-100 dark:border-white/5 flex justify-between items-center">
+        <span className="text-[9px] font-bold text-gray-400 uppercase tracking-widest">Gemini 1.5 Flash</span>
         <button 
           onClick={() => fetchSummary(month)}
-          className="neo-btn bg-white text-[10px] py-1 px-3"
+          className="text-[10px] font-bold text-indigo-600 hover:text-indigo-700 uppercase tracking-wider transition-colors disabled:opacity-50"
+          disabled={loading || !month}
         >
-          Re-Analyze
+          {loading ? 'Sabar ya...' : 'Analisis Ulang'}
         </button>
       </div>
     </div>

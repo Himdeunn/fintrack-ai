@@ -64,8 +64,8 @@ export default function DashboardPage() {
         </div>
       </div>
       
-      <div className="mt-20 text-center font-black uppercase opacity-20 tracking-widest text-xs">
-        Finance AI — Neo-Brutalism Edition
+      <div className="mt-20 text-center font-bold uppercase opacity-20 tracking-widest text-[10px]">
+        Smart Finance AI — Powered by Neon & Gemini
       </div>
     </div>
   )

@@ -1,98 +1,82 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
+import { loginUser } from '@/lib/actions/auth'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 export default function LoginPage() {
-  const router = useRouter()
-  const supabase = createClient()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function handleLogin(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
     setError('')
 
+    const formData = new FormData(e.currentTarget)
+    const data = Object.fromEntries(formData)
+
     try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password })
-
-      if (error) {
-        if (error.message.includes('fetch')) {
-          setError('Koneksi ke server gagal. Cek internet atau VPN kamu.')
-        } else {
-          setError('Email atau password salah')
-        }
-        setLoading(false)
-        return
-      }
-
-      router.push('/dashboard')
-      router.refresh()
+      await loginUser(data)
     } catch (err: any) {
-      console.error('Login error:', err)
-      setError(err.message || 'Terjadi kesalahan sistem')
+      setError(err.message || 'Gagal masuk')
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-yellow-300">
-      <div className="bento-card max-w-md w-full bg-white">
-        <div className="mb-10 text-center">
-          <div className="inline-block bg-black text-white font-black px-4 py-1 mb-4 text-sm uppercase tracking-widest">
-            Identity Check
+    <div className="min-h-screen flex items-center justify-center p-6 bg-[#f8f9fa] dark:bg-[#0a0a0a]">
+      <div className="bento-card max-w-md w-full shadow-2xl p-10 bg-white dark:bg-[#141414]">
+        <div className="mb-10">
+          <div className="bento-logo mb-6">
+            <div className="bento-logo-dot" />
+            fintrack.ai
           </div>
-          <h1 className="text-5xl font-black uppercase tracking-tighter leading-none">Log In</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-black dark:text-white">Selamat Datang Kembali</h1>
+          <p className="text-gray-500 dark:text-gray-400">Masuk untuk melihat ringkasan AI kamu hari ini.</p>
         </div>
 
-        <form onSubmit={handleLogin} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label className="font-black uppercase text-xs" htmlFor="email">Email Address</Label>
+            <Label htmlFor="email">Email</Label>
             <Input 
+              name="email"
               id="email" 
               type="email" 
-              placeholder="YOUR@EMAIL.COM"
-              className="h-14 border-4 border-black rounded-none font-bold placeholder:text-gray-300 focus-visible:ring-0 focus-visible:translate-x-1 focus-visible:translate-y-1 transition-transform"
-              value={email} 
-              onChange={e => setEmail(e.target.value)} 
+              placeholder="kamu@email.com"
+              className="h-12 bg-gray-50 dark:bg-zinc-900 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500"
               required 
             />
           </div>
           <div className="space-y-2">
-            <Label className="font-black uppercase text-xs" htmlFor="password">Security Code</Label>
+            <Label htmlFor="password">Password</Label>
             <Input 
+              name="password"
               id="password" 
               type="password" 
               placeholder="••••••••"
-              className="h-14 border-4 border-black rounded-none font-bold placeholder:text-gray-300 focus-visible:ring-0 focus-visible:translate-x-1 focus-visible:translate-y-1 transition-transform"
-              value={password} 
-              onChange={e => setPassword(e.target.value)} 
+              className="h-12 bg-gray-50 dark:bg-zinc-900 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500"
               required 
             />
           </div>
           
           {error && (
-            <div className="p-4 bg-red-500 text-white font-black border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] uppercase text-xs">
+            <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium border border-red-100">
               {error}
             </div>
           )}
 
-          <Button type="submit" className="neo-btn w-full h-16 bg-cyan-300 text-xl" disabled={loading}>
-            {loading ? 'WAIT...' : 'ENTER →'}
+          <Button type="submit" className="w-full h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-lg shadow-lg shadow-indigo-200 transition-all active:scale-[0.98]" disabled={loading}>
+            {loading ? 'Memproses...' : 'Masuk →'}
           </Button>
         </form>
 
-        <div className="mt-10 text-center font-bold">
-          NO ACCOUNT?{' '}
-          <Link href="/register" className="underline decoration-4 hover:bg-yellow-300 transition-colors">SIGN UP</Link>
+        <div className="mt-10 text-center text-sm text-gray-500">
+          Belum punya akun?{' '}
+          <Link href="/register" className="text-indigo-600 font-bold hover:underline">Daftar Sekarang</Link>
         </div>
       </div>
     </div>
