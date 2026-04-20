@@ -65,8 +65,13 @@ export async function getTransactions(month?: string) {
     where.date = { gte: start, lte: end }
   }
 
-  return await prisma.transaction.findMany({
+  const results = await prisma.transaction.findMany({
     where,
     orderBy: { date: 'desc' },
   })
+
+  return results.map(t => ({
+    ...t,
+    type: t.type as 'income' | 'expense'
+  }))
 }
