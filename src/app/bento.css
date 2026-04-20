@@ -1,0 +1,114 @@
+/* ============================================
+   Finance Tracker AI — Neo-Brutalism (Awwwards Style)
+   ============================================ */
+
+:root {
+  --ff: var(--font-sans), 'Inter', sans-serif;
+  --fm: var(--font-mono), 'Space Mono', monospace;
+  
+  /* Neo-Brutalism Palette */
+  --bg: #ffffff;
+  --fg: #000000;
+  --accent: #ffff00; /* Yellow */
+  --accent-2: #00ffff; /* Cyan */
+  --accent-3: #ff00ff; /* Magenta */
+  --green: #00ff00;
+  --red: #ff3333;
+  
+  --border-width: 3px;
+  --hard-shadow: 8px 8px 0px 0px #000000;
+  --hard-shadow-sm: 4px 4px 0px 0px #000000;
+  --hard-shadow-hover: 12px 12px 0px 0px #000000;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: var(--ff);
+  background-image: radial-gradient(#000 0.5px, transparent 0.5px);
+  background-size: 20px 20px;
+}
+
+/* --- Neo-Brutalism Cards --- */
+.bento-card {
+  background: white;
+  border: var(--border-width) solid var(--fg);
+  border-radius: 0px; /* Sharp corners or very slight */
+  box-shadow: var(--hard-shadow);
+  padding: 30px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.bento-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: var(--hard-shadow-hover);
+}
+
+.bento-card--accent {
+  background: var(--accent);
+}
+
+/* --- Buttons --- */
+.neo-btn {
+  background: var(--accent-2);
+  border: var(--border-width) solid var(--fg);
+  padding: 12px 24px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: var(--hard-shadow-sm);
+  transition: all 0.1s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.neo-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #000000;
+}
+
+.neo-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 0px 0px 0px 0px #000000;
+}
+
+/* --- Typography --- */
+.bento-title {
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  -webkit-text-stroke: 1px black;
+}
+
+.bento-label {
+  font-family: var(--fm);
+  font-weight: 900;
+  text-transform: uppercase;
+  background: black;
+  color: white;
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.bento-value {
+  font-size: 40px;
+  font-weight: 900;
+  font-family: var(--fm);
+}
+
+/* --- Grid --- */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .bento-title { font-size: 3rem; }
+}
