@@ -3,9 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { loginUser } from '@/lib/actions/auth'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import { motion } from 'framer-motion'
 
 export default function LoginPage() {
   const [error, setError] = useState('')
@@ -28,56 +26,94 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 bg-[#f8f9fa] dark:bg-[#0a0a0a]">
-      <div className="bento-card max-w-md w-full shadow-2xl p-10 bg-white dark:bg-[#141414]">
-        <div className="mb-10">
-          <div className="bento-logo mb-6">
-            <div className="bento-logo-dot" />
-            fintrack.ai
+    <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black flex flex-col items-center justify-center p-6 relative overflow-hidden">
+      {/* Background Kinetic Elements */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+      </div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
+        className="w-full max-w-2xl relative z-10"
+      >
+        <div className="mb-24 text-center">
+          <div className="flex justify-center items-center gap-4 mb-10">
+            <div className="w-2 h-2 bg-lime-400 rounded-full animate-pulse" />
+            <span className="ev-label !mb-0 tracking-[0.8em]">AUTH_PROTOCOL_v2.0</span>
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight mb-2 text-black dark:text-white">Selamat Datang Kembali</h1>
-          <p className="text-gray-500 dark:text-gray-400">Masuk untuk melihat ringkasan AI kamu hari ini.</p>
+          <h1 className="text-[clamp(3rem,8vw,6rem)] font-black uppercase tracking-[-0.06em] leading-[0.85] italic mb-6">
+            WELCOME_BACK<br/>
+            <span className="text-white/10">ACCESS_ID.</span>
+          </h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input 
-              name="email"
-              id="email" 
-              type="email" 
-              placeholder="kamu@email.com"
-              className="h-12 bg-gray-50 dark:bg-zinc-900 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500"
-              required 
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input 
-              name="password"
-              id="password" 
-              type="password" 
-              placeholder="••••••••"
-              className="h-12 bg-gray-50 dark:bg-zinc-900 border-none rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500"
-              required 
-            />
-          </div>
-          
-          {error && (
-            <div className="p-4 bg-red-50 text-red-600 rounded-xl text-sm font-medium border border-red-100">
-              {error}
+        <div className="ev-border p-12 bg-white/[0.01] backdrop-blur-xl relative group">
+          {/* Decorative Corner */}
+          <div className="absolute -top-1 -left-1 w-4 h-4 border-t border-l border-white/20" />
+          <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b border-r border-white/20" />
+
+          <form onSubmit={handleSubmit} className="space-y-16">
+            <div className="space-y-4">
+              <label className="ev-label !mb-2 opacity-30">ENCRYPTED_EMAIL</label>
+              <input 
+                name="email"
+                type="email"
+                placeholder="USER@DOMAIN.COM"
+                className="w-full bg-transparent border-b border-white/5 py-4 text-2xl font-black tracking-tight text-white focus:outline-none focus:border-white transition-all placeholder:text-white/5"
+                required
+              />
             </div>
-          )}
 
-          <Button type="submit" className="w-full h-14 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold text-lg shadow-lg shadow-indigo-200 transition-all active:scale-[0.98]" disabled={loading}>
-            {loading ? 'Memproses...' : 'Masuk →'}
-          </Button>
-        </form>
+            <div className="space-y-4">
+              <label className="ev-label !mb-2 opacity-30">SECURE_PASSPHRASE</label>
+              <input 
+                name="password"
+                type="password"
+                placeholder="********"
+                className="w-full bg-transparent border-b border-white/5 py-4 text-2xl font-black tracking-tight text-white focus:outline-none focus:border-white transition-all placeholder:text-white/5"
+                required
+              />
+            </div>
 
-        <div className="mt-10 text-center text-sm text-gray-500">
-          Belum punya akun?{' '}
-          <Link href="/register" className="text-indigo-600 font-bold hover:underline">Daftar Sekarang</Link>
+            {error && (
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="p-6 border border-rose-500/20 bg-rose-500/5 text-rose-500 font-mono text-[10px] uppercase tracking-widest text-center"
+              >
+                [ FATAL_ERROR ] : {error}
+              </motion.div>
+            )}
+
+            <button 
+              type="submit" 
+              className="ev-btn w-full !py-10 text-[11px] font-black bg-white text-black hover:bg-lime-400 border-none transition-all duration-1000"
+              disabled={loading}
+            >
+              {loading ? 'SYNCHRONIZING...' : 'AUTHORIZE_SESSION'}
+            </button>
+          </form>
         </div>
+
+        <div className="mt-16 flex justify-between items-center px-4">
+          <div className="flex items-center gap-4">
+            <div className="w-1 h-1 bg-white/20 rounded-full" />
+            <span className="ev-label !mb-0 opacity-20">PENDING_STATUS</span>
+          </div>
+          <Link href="/register" className="ev-label !mb-0 text-white/40 hover:text-white transition-colors">
+            CREATE_NEW_NODE_01
+          </Link>
+        </div>
+      </motion.div>
+
+      {/* Footer Info */}
+      <div className="absolute bottom-10 left-10 hidden lg:block">
+        <span className="ev-label !text-[8px] opacity-10">COORD_X: 52.5200° N</span>
+      </div>
+      <div className="absolute bottom-10 right-10 hidden lg:block">
+        <span className="ev-label !text-[8px] opacity-10">COORD_Y: 13.4050° E</span>
       </div>
     </div>
   )

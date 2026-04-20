@@ -8,7 +8,6 @@ import {
   DialogContent,
 } from '@/components/ui/dialog'
 import { BentoAddCard } from './TransactionForm'
-import { Trash2, Edit3, ArrowUpRight, ArrowDownLeft } from 'lucide-react'
 
 function fmtRupiah(v: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(v)
@@ -19,80 +18,88 @@ export function BentoTxList({ month }: { month: string }) {
   const del = useDeleteTransaction()
   const [editTarget, setEditTarget] = useState<Transaction | null>(null)
 
-  if (isLoading) return <div className="bento-card h-[500px] animate-pulse bg-gray-50/50" />
+  if (isLoading) return <div className="h-[600px] bg-white/[0.01] animate-pulse" />
 
   return (
-    <div className="bento-card flex flex-col h-[500px]">
-      <div className="flex justify-between items-center mb-6">
+    <div className="p-10 bg-white/[0.01] flex flex-col h-[600px] relative overflow-hidden">
+      {/* Background Kinetic Text */}
+      <div className="absolute top-0 right-0 text-[15vw] font-black text-white/[0.01] pointer-events-none select-none italic -mr-10 -mt-5">
+        LEDGER
+      </div>
+
+      <div className="flex justify-between items-end mb-16 relative z-10">
         <div>
-          <div className="bento-label">riwayat transaksi</div>
-          <h3 className="text-xl font-extrabold tracking-tight">Ledger Aktivitas</h3>
+          <span className="ev-label !mb-4">SYSTEM_LEDGER_STREAM</span>
+          <h3 className="text-6xl font-black uppercase tracking-tighter leading-none italic">RECORDS_LOG</h3>
         </div>
-        <div className="bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 px-3 py-1 rounded-full font-bold text-[10px] tracking-widest uppercase">
-          {transactions.length} Record
+        <div className="text-right">
+          <div className="ev-label opacity-40 mb-2">QUERY_MONTH: {month}</div>
+          <div className="text-2xl font-black italic">{transactions.length.toString().padStart(2, '0')}</div>
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto pr-2 custom-scrollbar space-y-3">
-        {!transactions.length ? (
-          <div className="h-full flex flex-col items-center justify-center text-gray-300 italic text-sm">
-            Belum ada aktivitas
-          </div>
-        ) : (
-          transactions.map((t: Transaction) => (
-            <div 
-              key={t.id} 
-              className="group relative flex items-center justify-between p-3 rounded-2xl hover:bg-gray-50 dark:hover:bg-white/5 transition-all duration-200 border border-transparent hover:border-gray-100 dark:hover:border-white/5"
-            >
-              <div className="flex items-center gap-4">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                  t.type === 'income' 
-                    ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30' 
-                    : 'bg-rose-50 text-rose-600 dark:bg-rose-950/30'
-                }`}>
-                  {t.type === 'income' ? <ArrowDownLeft className="w-5 h-5" /> : <ArrowUpRight className="w-5 h-5" />}
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-gray-900 dark:text-white truncate max-w-[150px]">{t.description || t.category}</p>
-                  <p className="text-[10px] font-medium text-gray-400 uppercase tracking-wider mt-0.5">
-                    {t.category} • {new Date(t.date).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4">
-                <p className={`text-sm font-bold ${
-                  t.type === 'income' ? 'text-emerald-600' : 'text-rose-600'
-                }`}>
-                  {t.type === 'income' ? '+' : '-'}{fmtRupiah(t.amount)}
-                </p>
-                
-                <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <button 
-                    onClick={() => setEditTarget(t)}
-                    className="p-2 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-all"
-                  >
-                    <Edit3 className="w-3.5 h-3.5" />
-                  </button>
-                  <button 
-                    onClick={() => { if(confirm('Hapus transaksi ini?')) del.mutate(t.id) }}
-                    className="p-2 text-gray-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-all"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
+      <div className="flex-1 overflow-auto pr-4 custom-scrollbar relative z-10">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b border-white/5 text-[9px] font-mono text-white/20 uppercase tracking-[0.4em]">
+              <th className="pb-6 font-normal">TIMESTAMP</th>
+              <th className="pb-6 font-normal">IDENTIFIER</th>
+              <th className="pb-6 font-normal">TAG_ID</th>
+              <th className="pb-6 font-normal text-right">VAL_CREDIT</th>
+              <th className="pb-6 font-normal text-right">ACTION</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5">
+            {!transactions.length ? (
+              <tr>
+                <td colSpan={5} className="py-40 text-center ev-label opacity-10 uppercase tracking-[1em]">NO_LOGS_DETECTED</td>
+              </tr>
+            ) : (
+              transactions.map((t: Transaction) => (
+                <tr key={t.id} className="group hover:bg-white/[0.02] transition-all">
+                  <td className="py-6 font-mono text-[9px] text-white/20 group-hover:text-white/60">
+                    {new Date(t.date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' }).replace(/\//g, '.')}
+                  </td>
+                  <td className="py-6">
+                    <p className="text-base font-black uppercase tracking-tighter truncate max-w-[250px] group-hover:text-lime-400 transition-all italic">
+                      {t.description || 'GENERIC_ENTRY_LOG'}
+                    </p>
+                  </td>
+                  <td className="py-6">
+                    <span className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em]">{t.category}</span>
+                  </td>
+                  <td className={`py-6 text-right font-black text-lg italic ${
+                    t.type === 'income' ? 'text-lime-400' : 'text-white'
+                  }`}>
+                    {fmtRupiah(t.amount).replace('Rp', '')}
+                  </td>
+                  <td className="py-6 text-right opacity-0 group-hover:opacity-100 transition-all">
+                    <div className="flex gap-8 justify-end">
+                      <button 
+                        onClick={() => setEditTarget(t)} 
+                        className="text-[8px] font-black text-white/40 hover:text-white uppercase tracking-[0.3em]"
+                      >
+                        [ MOD ]
+                      </button>
+                      <button 
+                        onClick={() => { if(confirm('Delete log?')) del.mutate(t.id) }} 
+                        className="text-[8px] font-black text-rose-900 hover:text-rose-500 uppercase tracking-[0.3em]"
+                      >
+                        [ DEL ]
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </div>
 
       <Dialog open={!!editTarget} onOpenChange={(open) => !open && setEditTarget(null)}>
-        <DialogContent className="max-w-md bg-white dark:bg-[#141414] border-none p-10 rounded-[32px] shadow-2xl">
-          <h2 className="text-2xl font-extrabold tracking-tight mb-8">Edit Transaksi</h2>
-          {editTarget && (
-            <BentoAddCard transaction={editTarget} onSuccess={() => setEditTarget(null)} />
-          )}
+        <DialogContent className="max-w-4xl bg-black border border-white/5 p-24 rounded-none shadow-none text-white overflow-hidden">
+          <div className="absolute top-0 right-0 text-[10vw] font-black text-white/[0.02] pointer-events-none select-none -mr-10 -mt-10 italic">PATCH</div>
+          <BentoAddCard transaction={editTarget} onSuccess={() => setEditTarget(null)} />
         </DialogContent>
       </Dialog>
     </div>

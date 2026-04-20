@@ -14,6 +14,7 @@ model User {
   fullName     String?
   createdAt    DateTime      @default(now())
   transactions Transaction[]
+  aiSummaries  AiSummary[]
 }
 
 model Transaction {
@@ -26,4 +27,15 @@ model Transaction {
   createdAt   DateTime @default(now())
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AiSummary {
+  id        String   @id @default(uuid())
+  month     String   // Format: YYYY-MM
+  summary   String   @db.Text
+  createdAt DateTime @default(now())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, month]) // Satu user hanya punya satu summary per bulan
 }
