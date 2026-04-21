@@ -2,15 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import type { Transaction } from '@/types/database'
-import { motion } from 'framer-motion'
-
-function fmtRupiah(v: number) {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    maximumFractionDigits: 0,
-  }).format(v)
-}
+import { formatCurrency } from '@/lib/utils'
 
 export function BentoSummaryCards({ transactions }: { transactions: Transaction[] }) {
   const [hash, setHash] = useState('')
@@ -32,9 +24,8 @@ export function BentoSummaryCards({ transactions }: { transactions: Transaction[
   return (
     <>
       {stats.map((s, idx) => (
-        <motion.div 
+        <div 
           key={idx} 
-          whileHover={{ scale: 1.02, y: -5 }}
           className="dr-card flex flex-col justify-between h-[300px] group relative overflow-hidden"
         >
           {/* Background ID Decoration */}
@@ -45,7 +36,7 @@ export function BentoSummaryCards({ transactions }: { transactions: Transaction[
           <div className="relative z-10">
             <span className="dr-label block mb-8 opacity-40 group-hover:opacity-100 transition-opacity">REF_CODE_{hash}</span>
             <div className={`dr-title text-7xl ${s.accent} tracking-[-0.1em] group-hover:tracking-normal transition-all duration-700`}>
-              {Math.abs(s.value).toLocaleString('id-ID')}
+              {formatCurrency(s.value)}
             </div>
             <span className="dr-label text-white/20">IDR_CURRENCY_CORE</span>
           </div>
@@ -54,7 +45,7 @@ export function BentoSummaryCards({ transactions }: { transactions: Transaction[
             <div className="dr-title text-xl opacity-20 group-hover:opacity-100">{s.label}</div>
             <div className="w-12 h-1 bg-white/10 group-hover:bg-lime-400 transition-colors" />
           </div>
-        </motion.div>
+        </div>
       ))}
     </>
   )

@@ -9,7 +9,7 @@ import { BentoAiCard } from '@/components/dashboard/AiSummaryCard'
 import { BentoTxList } from '@/components/transactions/TransactionList'
 import { BentoAddCard, BentoTopCatCard } from '@/components/transactions/TransactionForm'
 import { useUser } from '@/hooks/useUser'
-import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 export default function DashboardPage() {
   const { user } = useUser()
@@ -36,14 +36,10 @@ export default function DashboardPage() {
       {/* REFINED HERO */}
       <section className="mt-20 mb-32 border-b-8 border-white/5 pb-20">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-10">
-          <motion.h1 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="dr-title text-[clamp(4rem,15vw,12rem)] leading-none"
-          >
+          <h1 className="dr-title text-[clamp(4rem,15vw,12rem)] leading-none">
             {currentMonthLabel.split(' ')[0]}<br />
             <span className="text-white/5 italic">PORTFOLIO.</span>
-          </motion.h1>
+          </h1>
           <div className="text-right">
             <span className="dr-label !text-lime-400 mb-2">SYSTEM_HEALTH</span>
             <div className="flex items-center justify-end gap-3">
@@ -109,8 +105,8 @@ export default function DashboardPage() {
           <div>
             <span className="dr-label block mb-4">LEGAL</span>
             <div className="flex flex-col gap-2 dr-title text-lg opacity-40">
-              <a href="#" className="hover:text-lime-400">TERMS</a>
-              <a href="#" className="hover:text-lime-400">PRIVACY</a>
+              <Link href="/terms" className="hover:text-lime-400">TERMS</Link>
+              <Link href="/privacy" className="hover:text-lime-400">PRIVACY</Link>
             </div>
           </div>
           <div className="text-right">

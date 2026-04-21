@@ -9,13 +9,7 @@ import { useCreateTransaction, useUpdateTransaction } from '@/hooks/useTransacti
 import type { Transaction, TransactionType } from '@/types/database'
 import { getExpenseByCategory } from '@/lib/utils/chartData'
 
-function fmtRupiah(v: number) {
-  return new Intl.NumberFormat('id-ID', {
-    style: 'currency',
-    currency: 'IDR',
-    maximumFractionDigits: 0,
-  }).format(v)
-}
+import { formatCurrency } from '@/lib/utils'
 
 export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => void; transaction?: Transaction }) {
   const [type, setType] = useState<TransactionType>(transaction?.type ?? 'expense')
@@ -143,7 +137,7 @@ export function BentoTopCatCard({ transactions }: { transactions: Transaction[] 
             <div key={item.name} className="group">
               <div className="flex justify-between items-end mb-2">
                 <span className="text-[9px] font-bold text-white/30 group-hover:text-white transition-colors uppercase tracking-widest">{item.name}</span>
-                <span className="font-mono text-[10px] text-white/10 group-hover:text-lime-400 transition-colors">{fmtRupiah(item.value)}</span>
+                <span className="font-mono text-[10px] text-white/10 group-hover:text-lime-400 transition-colors">{formatCurrency(item.value)}</span>
               </div>
               <div className="h-[1px] bg-white/5">
                 <div 

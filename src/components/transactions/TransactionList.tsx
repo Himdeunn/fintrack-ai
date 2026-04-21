@@ -8,10 +8,7 @@ import {
   DialogContent,
 } from '@/components/ui/dialog'
 import { BentoAddCard } from './TransactionForm'
-
-function fmtRupiah(v: number) {
-  return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(v)
-}
+import { formatCurrency } from '@/lib/utils'
 
 export function BentoTxList({ month }: { month: string }) {
   const { data: transactions = [], isLoading } = useTransactions(month)
@@ -71,7 +68,7 @@ export function BentoTxList({ month }: { month: string }) {
                   <td className={`py-6 text-right font-black text-lg italic ${
                     t.type === 'income' ? 'text-lime-400' : 'text-white'
                   }`}>
-                    {fmtRupiah(t.amount).replace('Rp', '')}
+                    {formatCurrency(t.amount)}
                   </td>
                   <td className="py-6 text-right opacity-0 group-hover:opacity-100 transition-all">
                     <div className="flex gap-8 justify-end">
@@ -99,7 +96,7 @@ export function BentoTxList({ month }: { month: string }) {
       <Dialog open={!!editTarget} onOpenChange={(open) => !open && setEditTarget(null)}>
         <DialogContent className="max-w-4xl bg-black border border-white/5 p-24 rounded-none shadow-none text-white overflow-hidden">
           <div className="absolute top-0 right-0 text-[10vw] font-black text-white/[0.02] pointer-events-none select-none -mr-10 -mt-10 italic">PATCH</div>
-          <BentoAddCard transaction={editTarget} onSuccess={() => setEditTarget(null)} />
+          <BentoAddCard transaction={editTarget ?? undefined} onSuccess={() => setEditTarget(null)} />
         </DialogContent>
       </Dialog>
     </div>

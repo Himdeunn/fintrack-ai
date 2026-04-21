@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { loginUser } from '@/lib/actions/auth'
-import { motion } from 'framer-motion'
 
 export default function LoginPage() {
   const [error, setError] = useState('')
@@ -32,12 +31,7 @@ export default function LoginPage() {
         <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0)', backgroundSize: '40px 40px' }} />
       </div>
 
-      <motion.div 
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-        className="w-full max-w-2xl relative z-10"
-      >
+      <div className="w-full max-w-2xl relative z-10">
         <div className="mb-24 text-center">
           <div className="flex justify-center items-center gap-4 mb-10">
             <div className="w-2 h-2 bg-lime-400 rounded-full animate-pulse" />
@@ -78,13 +72,9 @@ export default function LoginPage() {
             </div>
 
             {error && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="p-6 border border-rose-500/20 bg-rose-500/5 text-rose-500 font-mono text-[10px] uppercase tracking-widest text-center"
-              >
+              <div className="p-6 border border-rose-500/20 bg-rose-500/5 text-rose-500 font-mono text-[10px] uppercase tracking-widest text-center">
                 [ FATAL_ERROR ] : {error}
-              </motion.div>
+              </div>
             )}
 
             <button 
@@ -106,7 +96,7 @@ export default function LoginPage() {
             CREATE_NEW_NODE_01
           </Link>
         </div>
-      </motion.div>
+      </div>
 
       {/* Footer Info */}
       <div className="absolute bottom-10 left-10 hidden lg:block">

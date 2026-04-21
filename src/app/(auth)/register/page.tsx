@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { registerUser } from '@/lib/actions/auth'
-import { motion } from 'framer-motion'
 
 export default function RegisterPage() {
   const [error, setError] = useState('')
@@ -32,12 +31,7 @@ export default function RegisterPage() {
         <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0)', backgroundSize: '60px 60px' }} />
       </div>
 
-      <motion.div 
-        initial={{ opacity: 0, x: -40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
-        className="w-full max-w-2xl relative z-10"
-      >
+      <div className="w-full max-w-2xl relative z-10">
         <div className="mb-24 text-left">
           <div className="flex items-center gap-4 mb-10">
             <div className="w-8 h-[1px] bg-lime-400" />
@@ -86,13 +80,9 @@ export default function RegisterPage() {
             </div>
 
             {error && (
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="p-6 border border-rose-500/20 bg-rose-500/5 text-rose-500 font-mono text-[10px] uppercase tracking-widest text-center"
-              >
+              <div className="p-6 border border-rose-500/20 bg-rose-500/5 text-rose-500 font-mono text-[10px] uppercase tracking-widest text-center">
                 [ UPLINK_FAILED ] : {error}
-              </motion.div>
+              </div>
             )}
 
             <button 
@@ -113,7 +103,7 @@ export default function RegisterPage() {
             EXISTING_USER_ACCESS
           </Link>
         </div>
-      </motion.div>
+      </div>
 
       <style jsx global>{`
         .outline-text {
