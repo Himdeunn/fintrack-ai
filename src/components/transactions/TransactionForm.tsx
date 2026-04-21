@@ -81,7 +81,7 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
               <input 
                 {...register('amount')} 
                 placeholder="0"
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl py-4 pl-12 pr-4 text-2xl font-bold focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl py-4 pl-12 pr-4 text-2xl font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600"
               />
             </div>
           </div>
@@ -92,14 +92,14 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
               <input 
                 {...register('date')} 
                 type="date"
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm font-medium focus:ring-2 focus:ring-blue-500/20 outline-none"
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 outline-none"
               />
             </div>
             <div>
               <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('category')}</label>
               <select 
                 {...register('category')}
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm font-medium focus:ring-2 focus:ring-blue-500/20 outline-none appearance-none"
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 outline-none appearance-none"
               >
                 <option value="" disabled>PILIH</option>
                 {categories.map(c => (
@@ -114,7 +114,7 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
             <input 
               {...register('description')} 
               placeholder="..."
-              className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none"
+              className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 outline-none"
             />
           </div>
         </div>
