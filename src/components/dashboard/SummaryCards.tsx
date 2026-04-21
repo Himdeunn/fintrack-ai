@@ -1,24 +1,21 @@
 'use client'
 
-import { useEffect, useState } from 'react'
 import type { Transaction } from '@/types/database'
 import { formatCurrency } from '@/lib/utils'
+import { useLanguage } from '@/components/providers/LanguageProvider'
+import { TrendingUp, TrendingDown, Wallet } from 'lucide-react'
 
 export function BentoSummaryCards({ transactions }: { transactions: Transaction[] }) {
-  const [hash, setHash] = useState('')
-  
-  useEffect(() => {
-    setHash(Math.random().toString(36).substring(7).toUpperCase())
-  }, [])
+  const { t } = useLanguage()
 
   const income = transactions.filter(t => t.type === 'income').reduce((s, t) => s + t.amount, 0)
   const expense = transactions.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0)
   const balance = income - expense
 
   const stats = [
-    { label: 'CASH_INFLOW', value: income, accent: 'text-lime-400' },
-    { label: 'CASH_OUTFLOW', value: expense, accent: 'text-white' },
-    { label: 'NET_REVENUE', value: balance, accent: 'text-lime-400' },
+    { label: 'balance', value: balance, icon: Wallet, color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+    { label: 'income', value: income, icon: TrendingUp, color: 'text-emerald-600', bg: 'bg-emerald-50 dark:bg-emerald-900/20' },
+    { label: 'expense', value: expense, icon: TrendingDown, color: 'text-rose-600', bg: 'bg-rose-50 dark:bg-rose-900/20' },
   ]
 
   return (
@@ -26,24 +23,19 @@ export function BentoSummaryCards({ transactions }: { transactions: Transaction[
       {stats.map((s, idx) => (
         <div 
           key={idx} 
-          className="dr-card flex flex-col justify-between h-[300px] group relative overflow-hidden"
+          className="modern-card flex flex-col gap-4"
         >
-          {/* Background ID Decoration */}
-          <div className="absolute -right-10 -bottom-10 dr-title text-[15rem] opacity-[0.02] pointer-events-none group-hover:opacity-[0.05] transition-opacity">
-            0{idx+1}
+          <div className="flex justify-between items-start">
+            <div className={`p-3 rounded-xl ${s.bg} ${s.color}`}>
+              <s.icon size={24} />
+            </div>
           </div>
 
-          <div className="relative z-10">
-            <span className="dr-label block mb-8 opacity-40 group-hover:opacity-100 transition-opacity">REF_CODE_{hash}</span>
-            <div className={`dr-title text-7xl ${s.accent} tracking-[-0.1em] group-hover:tracking-normal transition-all duration-700`}>
+          <div>
+            <span className="text-muted font-medium uppercase tracking-wider">{t(s.label)}</span>
+            <div className={`text-3xl font-bold mt-1 ${s.color}`}>
               {formatCurrency(s.value)}
             </div>
-            <span className="dr-label text-white/20">IDR_CURRENCY_CORE</span>
-          </div>
-
-          <div className="relative z-10 border-t-2 border-white/5 pt-10 flex justify-between items-end">
-            <div className="dr-title text-xl opacity-20 group-hover:opacity-100">{s.label}</div>
-            <div className="w-12 h-1 bg-white/10 group-hover:bg-lime-400 transition-colors" />
           </div>
         </div>
       ))}

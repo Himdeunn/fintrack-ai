@@ -8,10 +8,12 @@ import { INCOME_CATEGORIES, EXPENSE_CATEGORIES } from '@/lib/constants'
 import { useCreateTransaction, useUpdateTransaction } from '@/hooks/useTransactions'
 import type { Transaction, TransactionType } from '@/types/database'
 import { getExpenseByCategory } from '@/lib/utils/chartData'
-
 import { formatCurrency } from '@/lib/utils'
+import { useLanguage } from '@/components/providers/LanguageProvider'
+import { PlusCircle, Save, X } from 'lucide-react'
 
 export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => void; transaction?: Transaction }) {
+  const { t } = useLanguage()
   const [type, setType] = useState<TransactionType>(transaction?.type ?? 'expense')
   const create = useCreateTransaction()
   const update = useUpdateTransaction()
@@ -29,8 +31,6 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
       },
     })
 
-  const selectedCat = watch('category')
-
   async function onSubmit(data: TransactionFormData) {
     try {
       if (transaction) {
@@ -47,70 +47,85 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
   }
 
   return (
-    <div className={transaction ? "" : "p-10 bg-white/[0.01] backdrop-blur-sm relative h-full"}>
+    <div className={transaction ? "p-8" : "p-0"}>
       {!transaction && (
-        <div className="mb-12">
-          <span className="ev-label !mb-4">DATA_ENTRY_NODE</span>
-          <h3 className="text-4xl font-black uppercase tracking-tighter leading-none italic">LOG_STREAM</h3>
+        <div className="mb-8">
+          <h3 className="text-xl font-bold flex items-center gap-2">
+            <PlusCircle size={20} className="text-blue-600" />
+            {t('add_transaction')}
+          </h3>
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
-        <div className="flex gap-1 border-b border-white/5 pb-8">
-          {['expense', 'income'].map((t) => (
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+        <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl">
+          {['expense', 'income'].map((tType) => (
             <button
-              key={t}
+              key={tType}
               type="button"
-              onClick={() => { setType(t as TransactionType); setValue('type', t as TransactionType); setValue('category', ''); }}
-              className={`flex-1 py-3 text-center transition-all ${
-                type === t ? 'bg-white text-black' : 'text-white/20 hover:text-white/40'
+              onClick={() => { setType(tType as TransactionType); setValue('type', tType as TransactionType); setValue('category', ''); }}
+              className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
+                type === tType ? 'bg-white dark:bg-slate-800 shadow-sm text-blue-600' : 'text-slate-400'
               }`}
             >
-              <span className="text-[9px] font-black uppercase tracking-[0.4em]">{t}</span>
+              {t(tType).toUpperCase()}
             </button>
           ))}
         </div>
 
-        <div className="space-y-8">
-          <div className="space-y-2">
-            <label className="ev-label !mb-1 opacity-30">NOMINAL_VALUE</label>
-            <input 
-              {...register('amount')} 
-              placeholder="0.00"
-              className="w-full bg-transparent border-b border-white/5 py-2 text-4xl font-black tracking-[-0.08em] text-white focus:outline-none transition-all placeholder:text-white/5"
-            />
+        <div className="space-y-4">
+          <div>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('amount')}</label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400 text-lg">Rp</span>
+              <input 
+                {...register('amount')} 
+                placeholder="0"
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl py-4 pl-12 pr-4 text-2xl font-bold focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all"
+              />
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-8">
-            <div className="space-y-2">
-              <label className="ev-label !mb-1 opacity-30">TIMESTAMP</label>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('date')}</label>
               <input 
                 {...register('date')} 
                 type="date"
-                className="w-full bg-transparent border-b border-white/5 py-2 text-[11px] font-mono uppercase text-white focus:outline-none"
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm font-medium focus:ring-2 focus:ring-blue-500/20 outline-none"
               />
             </div>
-            <div className="space-y-2">
-              <label className="ev-label !mb-1 opacity-30">CATEGORY_TAG</label>
+            <div>
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('category')}</label>
               <select 
                 {...register('category')}
-                className="w-full bg-transparent border-b border-white/5 py-2 text-[11px] font-bold uppercase text-white focus:outline-none appearance-none"
+                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm font-medium focus:ring-2 focus:ring-blue-500/20 outline-none appearance-none"
               >
-                <option value="" disabled className="bg-black">SELECT_CAT</option>
+                <option value="" disabled>PILIH</option>
                 {categories.map(c => (
-                  <option key={c} value={c} className="bg-black">{c}</option>
+                  <option key={c} value={c}>{c}</option>
                 ))}
               </select>
             </div>
+          </div>
+
+          <div>
+            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('description')}</label>
+            <input 
+              {...register('description')} 
+              placeholder="..."
+              className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none"
+            />
           </div>
         </div>
 
         <button 
           type="submit" 
-          className="ev-btn w-full !py-6 text-[10px] font-black bg-white text-black hover:bg-lime-400 border-none transition-all duration-1000"
+          className="modern-btn w-full py-4 shadow-lg shadow-blue-500/20"
           disabled={create.isPending || update.isPending}
         >
-          {transaction ? 'COMMIT_UPDATE' : 'EXECUTE_ENTRY_SESSION'}
+          <Save size={18} />
+          {transaction ? t('save') : t('add_transaction')}
         </button>
       </form>
     </div>
@@ -118,30 +133,31 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
 }
 
 export function BentoTopCatCard({ transactions }: { transactions: Transaction[] }) {
+  const { t } = useLanguage()
   const data = getExpenseByCategory(transactions).slice(0, 4)
 
   return (
-    <div className="p-10 bg-white/[0.01] h-[350px]">
-      <div className="flex justify-between items-start mb-12">
-        <div>
-          <span className="ev-label !mb-4">ALLOCATION_GRID</span>
-          <h3 className="text-3xl font-black uppercase tracking-tighter italic leading-none">DISTRIBUTION</h3>
-        </div>
+    <div className="flex flex-col h-full">
+      <div className="mb-8">
+        <h3 className="text-lg font-bold">{t('financial_efficiency')}</h3>
+        <p className="text-xs text-muted font-medium">{t('category')} Terbesar</p>
       </div>
       
       {!data.length ? (
-        <div className="h-40 flex items-center justify-center ev-label opacity-10">ZERO_DATA</div>
+        <div className="flex-1 flex items-center justify-center text-slate-300 italic text-sm">{t('history')} Kosong</div>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-6">
           {data.map((item, idx) => (
-            <div key={item.name} className="group">
-              <div className="flex justify-between items-end mb-2">
-                <span className="text-[9px] font-bold text-white/30 group-hover:text-white transition-colors uppercase tracking-widest">{item.name}</span>
-                <span className="font-mono text-[10px] text-white/10 group-hover:text-lime-400 transition-colors">{formatCurrency(item.value)}</span>
+            <div key={item.name} className="space-y-2">
+              <div className="flex justify-between items-center text-xs font-bold">
+                <span className="text-slate-500">{item.name}</span>
+                <span className="text-slate-900 dark:text-white">{formatCurrency(item.value)}</span>
               </div>
-              <div className="h-[1px] bg-white/5">
+              <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-white transition-all duration-1000 group-hover:bg-lime-400"
+                  className={`h-full rounded-full transition-all duration-1000 ${
+                    idx === 0 ? 'bg-blue-600' : 'bg-slate-400'
+                  }`}
                   style={{ width: `${(item.value / data[0].value) * 100}%` }}
                 />
               </div>

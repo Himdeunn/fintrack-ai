@@ -1,12 +1,15 @@
 'use client'
 
 import { useState } from 'react'
-import Link from 'next/link'
 import { registerUser } from '@/lib/actions/auth'
+import Link from 'next/link'
+import { useLanguage } from '@/components/providers/LanguageProvider'
+import { UserPlus, Mail, Lock, User, ArrowRight, Loader2 } from 'lucide-react'
 
 export default function RegisterPage() {
-  const [error, setError] = useState('')
+  const { language, setLanguage } = useLanguage()
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -14,103 +17,101 @@ export default function RegisterPage() {
     setError('')
 
     const formData = new FormData(e.currentTarget)
-    const data = Object.fromEntries(formData)
+    const result = await registerUser(formData)
 
-    try {
-      await registerUser(data)
-    } catch (err: any) {
-      setError(err.message || 'Gagal mendaftar')
+    if (result?.error) {
+      setError(result.error)
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-white selection:text-black flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Background Kinetic Elements */}
-      <div className="absolute inset-0 pointer-events-none opacity-20">
-        <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0)', backgroundSize: '60px 60px' }} />
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center items-center p-6 transition-colors">
+      {/* Lang Switcher */}
+      <div className="absolute top-8 right-8 flex bg-white dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <button onClick={() => setLanguage('id')} className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${language === 'id' ? 'bg-slate-100 dark:bg-slate-800 shadow-inner' : 'text-slate-400'}`}>ID</button>
+        <button onClick={() => setLanguage('en')} className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${language === 'en' ? 'bg-slate-100 dark:bg-slate-800 shadow-inner' : 'text-slate-400'}`}>EN</button>
       </div>
 
-      <div className="w-full max-w-2xl relative z-10">
-        <div className="mb-24 text-left">
-          <div className="flex items-center gap-4 mb-10">
-            <div className="w-8 h-[1px] bg-lime-400" />
-            <span className="ev-label !mb-0 tracking-[0.6em]">REGISTRATION_NODE_v1.4</span>
+      <div className="w-full max-w-md">
+        <div className="text-center mb-10">
+          <div className="inline-flex w-16 h-16 bg-blue-600 rounded-2xl items-center justify-center text-white shadow-xl shadow-blue-500/20 mb-6">
+            <UserPlus size={32} />
           </div>
-          <h1 className="text-[clamp(3rem,8vw,6rem)] font-black uppercase tracking-[-0.06em] leading-[0.85] italic mb-6">
-            CREATE_CORE<br/>
-            <span className="text-white/10 outline-text">ACCOUNT.</span>
-          </h1>
+          <h1 className="text-3xl font-extrabold tracking-tight mb-2">FinTrack.</h1>
+          <p className="text-slate-500 font-medium">{language === 'id' ? 'Daftar akun baru Anda.' : 'Create your new account.'}</p>
         </div>
 
-        <div className="ev-border p-12 bg-white/[0.01] backdrop-blur-xl relative">
-          <form onSubmit={handleSubmit} className="space-y-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="space-y-4">
-                <label className="ev-label !mb-2 opacity-30">FULL_IDENTIFIER</label>
-                <input 
+        <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl shadow-slate-200/50 dark:shadow-none">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{language === 'id' ? 'Nama Lengkap' : 'Full Name'}</label>
+              <div className="relative">
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <input
                   name="fullName"
-                  placeholder="EX: TEGAR_ARJUNA"
-                  className="w-full bg-transparent border-b border-white/5 py-4 text-xl font-black tracking-tight text-white focus:outline-none focus:border-white transition-all placeholder:text-white/5"
+                  type="text"
                   required
-                />
-              </div>
-              <div className="space-y-4">
-                <label className="ev-label !mb-2 opacity-30">ENCRYPTED_EMAIL</label>
-                <input 
-                  name="email"
-                  type="email"
-                  placeholder="USER@DOMAIN.COM"
-                  className="w-full bg-transparent border-b border-white/5 py-4 text-xl font-black tracking-tight text-white focus:outline-none focus:border-white transition-all placeholder:text-white/5"
-                  required
+                  placeholder="John Doe"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
                 />
               </div>
             </div>
 
-            <div className="space-y-4">
-              <label className="ev-label !mb-2 opacity-30">MASTER_PASSPHRASE</label>
-              <input 
-                name="password"
-                type="password"
-                placeholder="MIN_6_CHARACTERS"
-                minLength={6}
-                className="w-full bg-transparent border-b border-white/5 py-4 text-xl font-black tracking-tight text-white focus:outline-none focus:border-white transition-all placeholder:text-white/5"
-                required
-              />
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{language === 'id' ? 'Email' : 'Email Address'}</label>
+              <div className="relative">
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <input
+                  name="email"
+                  type="email"
+                  required
+                  placeholder="name@company.com"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi' : 'Password'}</label>
+              <div className="relative">
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <input
+                  name="password"
+                  type="password"
+                  required
+                  placeholder="••••••••"
+                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
+                />
+              </div>
             </div>
 
             {error && (
-              <div className="p-6 border border-rose-500/20 bg-rose-500/5 text-rose-500 font-mono text-[10px] uppercase tracking-widest text-center">
-                [ UPLINK_FAILED ] : {error}
+              <div className="p-4 bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-900/30 rounded-xl text-rose-600 text-xs font-bold text-center">
+                {error}
               </div>
             )}
 
-            <button 
-              type="submit" 
-              className="ev-btn w-full !py-10 text-[11px] font-black bg-white text-black hover:bg-lime-400 border-none transition-all duration-1000"
+            <button
+              type="submit"
               disabled={loading}
+              className="modern-btn w-full py-4 shadow-lg shadow-blue-500/20"
             >
-              {loading ? 'INITIALIZING...' : 'INITIALIZE_CORE_ACCOUNT'}
+              {loading ? <Loader2 className="animate-spin" /> : language === 'id' ? 'Daftar Sekarang' : 'Register Now'}
+              {!loading && <ArrowRight size={18} />}
             </button>
           </form>
-        </div>
 
-        <div className="mt-16 flex justify-between items-center px-4">
-          <div className="flex items-center gap-4 text-white/20">
-            <span className="font-mono text-[10px]">ENCRYPTION_AES_256</span>
+          <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
+            <p className="text-sm text-slate-500">
+              {language === 'id' ? 'Sudah punya akun?' : 'Already have an account?'}{' '}
+              <Link href="/login" className="text-blue-600 font-bold hover:underline">
+                {language === 'id' ? 'Masuk' : 'Sign In'}
+              </Link>
+            </p>
           </div>
-          <Link href="/login" className="ev-label !mb-0 text-white/40 hover:text-white transition-colors">
-            EXISTING_USER_ACCESS
-          </Link>
         </div>
       </div>
-
-      <style jsx global>{`
-        .outline-text {
-          -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1);
-          color: transparent;
-        }
-      `}</style>
     </div>
   )
 }

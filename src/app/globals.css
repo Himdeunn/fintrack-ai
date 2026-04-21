@@ -1,113 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;400;900&family=JetBrains+Mono:wght@100;400;800&family=Syncopate:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: #050505;
-  --color-foreground: #fff;
-  --font-sans: var(--font-outfit);
-  --font-mono: var(--font-mono);
+  --color-background: #ffffff;
+  --color-foreground: #0f172a;
+  --font-sans: 'Inter', var(--font-sans);
 }
 
 :root {
-  --ff-main: var(--font-outfit), sans-serif;
-  --ff-title: var(--font-syncopate), sans-serif;
-  --ff-mono: var(--font-mono), monospace;
-  
-  --accent-dr: #d4ff00; /* Neon Lime */
-  --bg-dr: #050505;
+  --primary: #2563eb;
+  --primary-foreground: #ffffff;
+  --accent: #f8fafc;
+  --border: #e2e8f0;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --color-background: #020617;
+  --color-foreground: #f8fafc;
+  --border: #1e293b;
+  --accent: #0f172a;
 }
 
 body {
-  background-color: var(--bg-dr) !important;
-  color: #fff !important;
-  font-family: var(--ff-main) !important;
-  cursor: none !important; /* Hide default cursor for custom one */
-  overflow-x: hidden;
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom DVDROD Cursor */
-#custom-cursor {
-  position: fixed;
-  top: 0; left: 0;
-  width: 20px; height: 20px;
-  background: var(--accent-dr);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99999;
-  mix-blend-difference: difference;
-  transition: transform 0.1s ease-out;
+/* Modern Card */
+.modern-card {
+  background: var(--color-background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-#custom-cursor-follower {
-  position: fixed;
-  top: 0; left: 0;
-  width: 60px; height: 60px;
-  border: 1px solid rgba(212, 255, 0, 0.3);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 99998;
-  transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+.modern-card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-color: var(--primary);
 }
 
-/* Brutalist Cards */
-.dr-card {
-  background: #0a0a0a;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 40px;
-  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+/* Modern Button */
+.modern-btn {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
-.dr-card:hover {
-  transform: translateY(-5px) scale(1.01);
-  border-color: var(--accent-dr);
-  background: #0f0f0f;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+.modern-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
-.dr-title {
-  font-family: var(--ff-main);
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: -0.08em;
-  line-height: 0.8;
+.modern-btn-secondary {
+  background: var(--accent);
+  color: var(--color-foreground);
+  border: 1px solid var(--border);
 }
 
-.dr-label {
-  font-family: var(--ff-mono);
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.4em;
-  color: #444;
+/* Typography Helpers */
+.heading-l {
+  font-size: 2.25rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
-/* Grainy Overlay */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.03;
-  pointer-events: none;
-  z-index: 10000;
-}
-
-/* Kinetic Hover Button */
-.dr-btn {
-  background: #fff;
-  color: #000;
-  padding: 20px 40px;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  transition: all 0.3s ease;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 0 85%);
-}
-
-.dr-btn:hover {
-  background: var(--accent-dr);
-  transform: translateX(10px);
+.text-muted {
+  color: #64748b;
+  font-size: 0.875rem;
 }

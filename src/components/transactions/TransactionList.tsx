@@ -9,80 +9,85 @@ import {
 } from '@/components/ui/dialog'
 import { BentoAddCard } from './TransactionForm'
 import { formatCurrency } from '@/lib/utils'
+import { useLanguage } from '@/components/providers/LanguageProvider'
+import { Calendar, Tag, DollarSign, Trash2, Edit3 } from 'lucide-react'
 
 export function BentoTxList({ month }: { month: string }) {
   const { data: transactions = [], isLoading } = useTransactions(month)
+  const { t } = useLanguage()
   const del = useDeleteTransaction()
   const [editTarget, setEditTarget] = useState<Transaction | null>(null)
 
-  if (isLoading) return <div className="h-[600px] bg-white/[0.01] animate-pulse" />
+  if (isLoading) return <div className="h-[600px] bg-slate-100 animate-pulse rounded-2xl" />
 
   return (
-    <div className="p-10 bg-white/[0.01] flex flex-col h-[600px] relative overflow-hidden">
-      {/* Background Kinetic Text */}
-      <div className="absolute top-0 right-0 text-[15vw] font-black text-white/[0.01] pointer-events-none select-none italic -mr-10 -mt-5">
-        LEDGER
-      </div>
-
-      <div className="flex justify-between items-end mb-16 relative z-10">
+    <div className="flex flex-col h-full bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
         <div>
-          <span className="ev-label !mb-4">SYSTEM_LEDGER_STREAM</span>
-          <h3 className="text-6xl font-black uppercase tracking-tighter leading-none italic">RECORDS_LOG</h3>
+          <h3 className="text-lg font-bold">{t('history')}</h3>
+          <p className="text-xs text-muted font-medium">{t('summary')} {month}</p>
         </div>
-        <div className="text-right">
-          <div className="ev-label opacity-40 mb-2">QUERY_MONTH: {month}</div>
-          <div className="text-2xl font-black italic">{transactions.length.toString().padStart(2, '0')}</div>
+        <div className="bg-white dark:bg-slate-700 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-600 shadow-sm">
+          <span className="text-xs font-bold">{transactions.length} {t('transactions')}</span>
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto pr-4 custom-scrollbar relative z-10">
+      <div className="flex-1 overflow-auto custom-scrollbar">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-white/5 text-[9px] font-mono text-white/20 uppercase tracking-[0.4em]">
-              <th className="pb-6 font-normal">TIMESTAMP</th>
-              <th className="pb-6 font-normal">IDENTIFIER</th>
-              <th className="pb-6 font-normal">TAG_ID</th>
-              <th className="pb-6 font-normal text-right">VAL_CREDIT</th>
-              <th className="pb-6 font-normal text-right">ACTION</th>
+            <tr className="border-b border-slate-100 dark:border-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50/30 dark:bg-slate-800/30">
+              <th className="px-6 py-4">{t('date')}</th>
+              <th className="px-6 py-4">{t('description')}</th>
+              <th className="px-6 py-4">{t('category')}</th>
+              <th className="px-6 py-4 text-right">{t('amount')}</th>
+              <th className="px-6 py-4 text-right"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
             {!transactions.length ? (
               <tr>
-                <td colSpan={5} className="py-40 text-center ev-label opacity-10 uppercase tracking-[1em]">NO_LOGS_DETECTED</td>
+                <td colSpan={5} className="py-24 text-center text-slate-300 font-medium italic">
+                  {t('history')} Kosong
+                </td>
               </tr>
             ) : (
               transactions.map((t: Transaction) => (
-                <tr key={t.id} className="group hover:bg-white/[0.02] transition-all">
-                  <td className="py-6 font-mono text-[9px] text-white/20 group-hover:text-white/60">
-                    {new Date(t.date).toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: '2-digit' }).replace(/\//g, '.')}
+                <tr key={t.id} className="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
+                      <Calendar size={14} className="opacity-40" />
+                      {new Date(t.date).toLocaleDateString('id-ID')}
+                    </div>
                   </td>
-                  <td className="py-6">
-                    <p className="text-base font-black uppercase tracking-tighter truncate max-w-[250px] group-hover:text-lime-400 transition-all italic">
-                      {t.description || 'GENERIC_ENTRY_LOG'}
+                  <td className="px-6 py-4">
+                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate max-w-[200px]">
+                      {t.description || '-'}
                     </p>
                   </td>
-                  <td className="py-6">
-                    <span className="text-[9px] font-bold text-white/30 uppercase tracking-[0.2em]">{t.category}</span>
+                  <td className="px-6 py-4">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
+                      <Tag size={10} />
+                      {t.category}
+                    </span>
                   </td>
-                  <td className={`py-6 text-right font-black text-lg italic ${
-                    t.type === 'income' ? 'text-lime-400' : 'text-white'
+                  <td className={`px-6 py-4 text-right font-bold text-sm ${
+                    t.type === 'income' ? 'text-emerald-600' : 'text-slate-900 dark:text-white'
                   }`}>
-                    {formatCurrency(t.amount)}
+                    {t.type === 'income' ? '+' : '-'}{formatCurrency(t.amount)}
                   </td>
-                  <td className="py-6 text-right opacity-0 group-hover:opacity-100 transition-all">
-                    <div className="flex gap-8 justify-end">
+                  <td className="px-6 py-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
+                    <div className="flex gap-2 justify-end">
                       <button 
                         onClick={() => setEditTarget(t)} 
-                        className="text-[8px] font-black text-white/40 hover:text-white uppercase tracking-[0.3em]"
+                        className="p-2 hover:bg-white dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-blue-600 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-600"
                       >
-                        [ MOD ]
+                        <Edit3 size={14} />
                       </button>
                       <button 
-                        onClick={() => { if(confirm('Delete log?')) del.mutate(t.id) }} 
-                        className="text-[8px] font-black text-rose-900 hover:text-rose-500 uppercase tracking-[0.3em]"
+                        onClick={() => { if(confirm('Hapus transaksi?')) del.mutate(t.id) }} 
+                        className="p-2 hover:bg-white dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-rose-600 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-600"
                       >
-                        [ DEL ]
+                        <Trash2 size={14} />
                       </button>
                     </div>
                   </td>
@@ -94,8 +99,7 @@ export function BentoTxList({ month }: { month: string }) {
       </div>
 
       <Dialog open={!!editTarget} onOpenChange={(open) => !open && setEditTarget(null)}>
-        <DialogContent className="max-w-4xl bg-black border border-white/5 p-24 rounded-none shadow-none text-white overflow-hidden">
-          <div className="absolute top-0 right-0 text-[10vw] font-black text-white/[0.02] pointer-events-none select-none -mr-10 -mt-10 italic">PATCH</div>
+        <DialogContent className="max-w-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-0 rounded-2xl overflow-hidden shadow-2xl">
           <BentoAddCard transaction={editTarget ?? undefined} onSuccess={() => setEditTarget(null)} />
         </DialogContent>
       </Dialog>
