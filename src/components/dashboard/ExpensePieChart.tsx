@@ -110,7 +110,7 @@ export function BentoPieChart({ transactions }: { transactions: Transaction[] })
                     fontSize: '12px',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
                   }}
-                  formatter={(v: number) => formatCurrency(v)}
+                  formatter={(v: any) => formatCurrency(Number(v))}
                 />
               </PieChart>
             </ResponsiveContainer>

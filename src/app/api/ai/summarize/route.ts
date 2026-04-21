@@ -37,14 +37,21 @@ export async function POST(req: Request) {
       return NextResponse.json({ summary: "Belum ada data transaksi untuk bulan ini. Mulai mencatat agar saya bisa menganalisisnya! 🚀" })
     }
 
+    interface CategorySummary {
+      [category: string]: number
+    }
+    interface TypeSummary {
+      [type: string]: CategorySummary
+    }
+
     const summaryData = transactions.reduce((acc, t) => {
       const type = t.type.toLowerCase() === 'income' ? 'Pemasukan' : 'Pengeluaran'
       if (!acc[type]) acc[type] = {}
       acc[type][t.category] = (acc[type][t.category] || 0) + t.amount
       return acc
-    }, {} as any)
+    }, {} as TypeSummary)
 
-    const dataString = Object.entries(summaryData).map(([type, cats]: [any, any]) => {
+    const dataString = Object.entries(summaryData).map(([type, cats]) => {
       const catDetails = Object.entries(cats).map(([cat, amt]) => `${cat}: ${amt}`).join(', ')
       return `${type} -> ${catDetails}`
     }).join(' | ')
