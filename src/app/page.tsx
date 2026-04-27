@@ -42,7 +42,9 @@ export default function LandingPage() {
             </div>
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8 leading-[1.1]">
               {language === 'id' ? 'Kelola Keuangan ' : 'Manage Finances '}
-              <span className="text-blue-600">Tanpa Pusing.</span>
+              <span className="text-blue-600">
+                {language === 'id' ? 'Tanpa Pusing' : 'Without Worries'}
+              </span>
             </h1>
             <p className="text-xl text-slate-500 mb-12 leading-relaxed">
               {language === 'id' 
