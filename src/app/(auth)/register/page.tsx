@@ -36,9 +36,7 @@ export default function RegisterPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-12">
           <Link href="/" className="inline-flex items-center justify-center gap-3 mb-8 group">
-            <div className="w-14 h-14 bg-indigo dark:bg-vanilla rounded-2xl flex items-center justify-center font-black text-vanilla dark:text-indigo text-2xl shadow-2xl shadow-indigo/20 group-hover:scale-110 transition-all duration-500">
-              F
-            </div>
+            <img src="/favicon.ico" alt="FinTrack AI Logo" className="w-16 h-16 rounded-2xl shadow-2xl shadow-indigo/20 group-hover:scale-110 transition-all duration-500 grayscale dark:invert" />
             <div className="text-left">
               <h1 className="text-2xl font-black uppercase tracking-tighter leading-none">FinTrack AI</h1>
               <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Financial Freedom</span>
