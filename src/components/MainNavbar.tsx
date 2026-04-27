@@ -37,7 +37,7 @@ export function MainNavbar({ user }: { user?: User | null }) {
         {/* Brand */}
         <Link href="/" className="flex items-center gap-4 group">
           <img 
-            src="/favicon.ico" 
+            src="/image.png" 
             alt="FinTrack Logo" 
             className="w-10 h-10 rounded-xl group-hover:rotate-12 transition-transform duration-500" 
           />
