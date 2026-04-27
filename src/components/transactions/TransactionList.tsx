@@ -10,96 +10,111 @@ import {
 import { BentoAddCard } from './TransactionForm'
 import { formatCurrency } from '@/lib/utils'
 import { useLanguage } from '@/components/providers/LanguageProvider'
-import { Calendar, Tag, DollarSign, Trash2, Edit3 } from 'lucide-react'
+import { Tag, Trash2 } from 'lucide-react'
 
 export function BentoTxList({ month }: { month: string }) {
   const { data: transactions = [], isLoading } = useTransactions(month)
   const { t } = useLanguage()
   const del = useDeleteTransaction()
   const [editTarget, setEditTarget] = useState<Transaction | null>(null)
+  const [page, setPage] = useState(1)
+  const itemsPerPage = 5
 
-  if (isLoading) return <div className="h-[600px] bg-slate-100 animate-pulse rounded-2xl" />
+  if (isLoading) return <div className="h-[600px] bg-indigo/5 dark:bg-vanilla/5 animate-pulse rounded-[40px]" />
+
+  const totalPages = Math.ceil(transactions.length / itemsPerPage)
+  const paginatedTransactions = transactions.slice((page - 1) * itemsPerPage, page * itemsPerPage)
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-      <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
+    <div className="flex flex-col h-full bg-white dark:bg-indigo-muted rounded-[48px] border border-indigo/5 dark:border-vanilla/10 overflow-hidden shadow-2xl shadow-indigo/5">
+      <div className="p-10 flex justify-between items-end bg-white dark:bg-indigo-muted">
         <div>
-          <h3 className="text-lg font-bold">{t('history')}</h3>
-          <p className="text-xs text-muted font-medium">{t('summary')} {month}</p>
+          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40 mb-2 block">{t('history')}</span>
+          <h3 className="text-4xl font-black uppercase tracking-tighter text-indigo dark:text-vanilla">{t('ledger')}</h3>
         </div>
-        <div className="bg-white dark:bg-slate-700 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-600 shadow-sm">
-          <span className="text-xs font-bold">{transactions.length} {t('transactions')}</span>
+        <div className="bg-indigo/5 dark:bg-vanilla/5 px-6 py-2 rounded-full border border-indigo/10 dark:border-vanilla/10 shadow-sm">
+          <span className="text-[10px] font-black uppercase tracking-widest text-indigo/60 dark:text-vanilla/60">{transactions.length} items</span>
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto custom-scrollbar">
-        <table className="w-full text-left border-collapse">
-          <thead>
-            <tr className="border-b border-slate-100 dark:border-slate-800 text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50/30 dark:bg-slate-800/30">
-              <th className="px-6 py-4">{t('date')}</th>
-              <th className="px-6 py-4">{t('description')}</th>
-              <th className="px-6 py-4">{t('category')}</th>
-              <th className="px-6 py-4 text-right">{t('amount')}</th>
-              <th className="px-6 py-4 text-right"></th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
-            {!transactions.length ? (
-              <tr>
-                <td colSpan={5} className="py-24 text-center text-slate-300 font-medium italic">
-                  {t('history')} Kosong
-                </td>
-              </tr>
-            ) : (
-              transactions.map((t: Transaction) => (
-                <tr key={t.id} className="group hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 text-xs font-medium text-slate-500">
-                      <Calendar size={14} className="opacity-40" />
-                      {new Date(t.date).toLocaleDateString('id-ID')}
+      <div className="p-10 space-y-4 flex-1">
+        {!transactions.length ? (
+          <div className="py-32 text-center">
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/20 dark:text-vanilla/20 italic">DATA_STREAM_EMPTY</span>
+          </div>
+        ) : (
+          <div className="grid gap-4">
+            {paginatedTransactions.map((tItem: Transaction) => (
+              <div 
+                key={tItem.id} 
+                onClick={() => setEditTarget(tItem)}
+                role="button"
+                tabIndex={0}
+                className="list-button group flex-col sm:flex-row gap-6 items-start sm:items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo focus:ring-offset-2"
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setEditTarget(tItem); }}
+              >
+                <div className="flex items-center gap-6 w-full sm:w-auto">
+                  <div className="w-12 h-12 shrink-0 rounded-xl bg-indigo/5 dark:bg-vanilla/5 flex items-center justify-center text-indigo/60 dark:text-vanilla/60 group-hover:bg-indigo group-hover:text-vanilla dark:group-hover:bg-vanilla dark:group-hover:text-indigo shadow-sm border border-indigo/10 dark:border-vanilla/10 transition-all duration-500">
+                    <Tag size={18} />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-[10px] font-black text-indigo/60 dark:text-vanilla/60 uppercase tracking-widest mb-1">
+                      {new Date(tItem.date).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' })} • {tItem.category}
                     </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 truncate max-w-[200px]">
-                      {t.description || '-'}
+                    <p className="text-sm font-black text-indigo dark:text-vanilla group-hover:translate-x-1 transition-transform truncate max-w-[200px] sm:max-w-none">
+                      {tItem.description || 'Untitled Transaction'}
                     </p>
-                  </td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-[10px] font-bold text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
-                      <Tag size={10} />
-                      {t.category}
-                    </span>
-                  </td>
-                  <td className={`px-6 py-4 text-right font-bold text-sm ${
-                    t.type === 'income' ? 'text-emerald-600' : 'text-slate-900 dark:text-white'
+                  </div>
+                </div>
+                
+                <div className="flex items-center justify-between sm:justify-end gap-8 w-full sm:w-auto mt-2 sm:mt-0 border-t sm:border-none border-indigo/5 dark:border-vanilla/5 pt-4 sm:pt-0">
+                  <div className={`text-xl font-black tracking-tight ${
+                    tItem.type === 'income' ? 'text-emerald-500' : 'text-indigo dark:text-vanilla'
                   }`}>
-                    {t.type === 'income' ? '+' : '-'}{formatCurrency(t.amount)}
-                  </td>
-                  <td className="px-6 py-4 text-right opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="flex gap-2 justify-end">
-                      <button 
-                        onClick={() => setEditTarget(t)} 
-                        className="p-2 hover:bg-white dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-blue-600 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-600"
-                      >
-                        <Edit3 size={14} />
-                      </button>
-                      <button 
-                        onClick={() => { if(confirm('Hapus transaksi?')) del.mutate(t.id) }} 
-                        className="p-2 hover:bg-white dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-rose-600 transition-colors border border-transparent hover:border-slate-200 dark:hover:border-slate-600"
-                      >
-                        <Trash2 size={14} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+                    {tItem.type === 'income' ? '+' : '-'}{formatCurrency(tItem.amount)}
+                  </div>
+                  <div 
+                    className="p-3 text-rose-500 bg-rose-50 dark:bg-rose-950/20 hover:bg-rose-100 dark:hover:bg-rose-950/40 rounded-xl transition-all cursor-pointer" 
+                    onClick={(e) => { e.stopPropagation(); if(confirm('Hapus?')) del.mutate(tItem.id); }}
+                  >
+                    <Trash2 size={16} />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
+
+      {totalPages > 1 && (
+        <div className="px-10 pb-10 flex items-center justify-between">
+          <button 
+            disabled={page === 1}
+            onClick={() => setPage(p => p - 1)}
+            className="modern-btn !py-3 !px-6 !text-[9px] disabled:opacity-20 !shadow-none border border-indigo/10 dark:border-vanilla/10 !bg-transparent !text-indigo dark:!text-vanilla hover:!bg-indigo/5 dark:hover:!bg-vanilla/5"
+          >
+            Previous
+          </button>
+          <div className="flex flex-col items-center">
+            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-indigo/40 dark:text-vanilla/40 mb-1">
+              {t('history')}
+            </span>
+            <span className="text-[11px] font-black text-indigo dark:text-vanilla">
+              {page} / {totalPages}
+            </span>
+          </div>
+          <button 
+            disabled={page === totalPages}
+            onClick={() => setPage(p => p + 1)}
+            className="modern-btn !py-3 !px-6 !text-[9px] disabled:opacity-20"
+          >
+            Next
+          </button>
+        </div>
+      )}
 
       <Dialog open={!!editTarget} onOpenChange={(open) => !open && setEditTarget(null)}>
-        <DialogContent className="max-w-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-0 rounded-2xl overflow-hidden shadow-2xl">
+        <DialogContent className="max-w-2xl bg-white dark:bg-indigo-muted border border-indigo/10 dark:border-vanilla/10 p-0 rounded-[40px] overflow-hidden shadow-2xl">
           <BentoAddCard transaction={editTarget ?? undefined} onSuccess={() => setEditTarget(null)} />
         </DialogContent>
       </Dialog>

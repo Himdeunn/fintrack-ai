@@ -5,82 +5,88 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-background: #ffffff;
-  --color-foreground: #0f172a;
+  --color-vanilla: #F0E7D5;
+  --color-indigo: #212842;
+  --color-vanilla-muted: #e5dbc5;
+  --color-indigo-muted: #2d3654;
+  
   --font-sans: 'Inter', var(--font-sans);
 }
 
 :root {
-  --primary: #2563eb;
-  --primary-foreground: #ffffff;
-  --accent: #f8fafc;
-  --border: #e2e8f0;
-  --radius: 0.75rem;
+  --background: var(--color-vanilla);
+  --foreground: var(--color-indigo);
 }
 
 .dark {
-  --color-background: #020617;
-  --color-foreground: #f8fafc;
-  --border: #1e293b;
-  --accent: #0f172a;
+  --background: var(--color-indigo);
+  --foreground: var(--color-vanilla);
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-foreground);
+  background-color: var(--background);
+  color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  @apply transition-colors duration-500 selection:bg-indigo selection:text-vanilla;
 }
 
-/* Modern Card */
-.modern-card {
-  background: var(--color-background);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  transition: all 0.2s ease;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+@layer components {
+  .modern-card {
+    @apply bg-white dark:bg-indigo-muted border border-indigo/5 dark:border-vanilla/10 rounded-[48px] p-10 transition-all duration-700 shadow-2xl shadow-indigo/5 dark:shadow-none hover:shadow-indigo/10 hover:-translate-y-1 overflow-hidden relative;
+  }
+  
+  .modern-btn {
+    @apply relative overflow-hidden rounded-2xl px-8 py-4 font-black uppercase tracking-widest text-[10px] bg-indigo text-vanilla shadow-xl shadow-indigo/20 transition-all duration-500 hover:bg-indigo-muted hover:shadow-indigo/40 active:scale-95 flex items-center justify-center gap-3 dark:bg-vanilla dark:text-indigo;
+  }
+  
+  .modern-btn-secondary {
+    @apply border border-indigo/20 bg-transparent text-indigo hover:bg-indigo/5 dark:border-vanilla/20 dark:text-vanilla dark:hover:bg-vanilla/5;
+  }
+
+  .text-rich-muted {
+    @apply text-indigo/40 dark:text-vanilla/40 font-black uppercase tracking-[0.3em] text-[10px];
+  }
+
+  .sentence-rich {
+    @apply text-base font-medium leading-relaxed text-indigo/60 dark:text-vanilla/60;
+  }
+  
+  .heading-hero {
+    @apply text-6xl md:text-8xl font-black uppercase leading-[0.85] tracking-tighter text-indigo dark:text-vanilla;
+  }
+
+  .list-button {
+    @apply w-full flex items-center justify-between p-6 rounded-2xl bg-white/40 dark:bg-indigo-muted/20 border border-transparent hover:border-indigo/10 hover:bg-white/60 hover:shadow-xl hover:shadow-indigo/5 transition-all duration-500 text-left;
+  }
 }
 
-.modern-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  border-color: var(--primary);
+/* Global Placeholder Visibility */
+input::placeholder, 
+textarea::placeholder, 
+select::placeholder {
+  @apply text-indigo/30 dark:text-vanilla/30 opacity-100 font-bold;
 }
 
-/* Modern Button */
-.modern-btn {
-  background: var(--primary);
-  color: var(--primary-foreground);
-  padding: 0.75rem 1.5rem;
-  border-radius: var(--radius);
-  font-weight: 600;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
+/* Hide Spin Buttons for Number Inputs */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.modern-btn:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
-.modern-btn-secondary {
-  background: var(--accent);
-  color: var(--color-foreground);
-  border: 1px solid var(--border);
+/* Custom Utilities */
+.glass-effect {
+  @apply backdrop-blur-xl bg-white/70 dark:bg-indigo-muted/70;
 }
 
-/* Typography Helpers */
-.heading-l {
-  font-size: 2.25rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+::-webkit-scrollbar {
+  display: none;
 }
-
-.text-muted {
-  color: #64748b;
-  font-size: 0.875rem;
+* {
+  scrollbar-width: none;
 }

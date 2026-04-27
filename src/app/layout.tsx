@@ -5,12 +5,14 @@ import { Toaster } from 'sonner';
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FinTrack - Smart Finance Tracker",
-  description: "Manage your finances with AI insights and modern minimalist design.",
+  title: "FinTrack AI - Smart Finance Tracker",
+  description: "Manage your finances with Gemini AI insights and modern minimalist design.",
   icons: {
-    icon: "/favico.ico",
+    icon: "/favicon.ico",
   },
 };
+
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 export default function RootLayout({
   children,
@@ -18,15 +20,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id">
+    <html lang="id" suppressHydrationWarning>
       <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
       <body className="antialiased font-sans">
-        <LanguageProvider>
-          <QueryProvider>
-            {children}
-            <Toaster richColors closeButton position="top-right" />
-          </QueryProvider>
-        </LanguageProvider>
+        <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <LanguageProvider>
+            <QueryProvider>
+              {children}
+              <Toaster richColors closeButton position="top-right" />
+            </QueryProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

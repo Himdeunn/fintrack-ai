@@ -47,84 +47,88 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
   }
 
   return (
-    <div className={transaction ? "p-8" : "p-0"}>
+    <div className={transaction ? "p-10" : "p-0"}>
       {!transaction && (
-        <div className="mb-8">
-          <h3 className="text-xl font-bold flex items-center gap-2">
-            <PlusCircle size={20} className="text-blue-600" />
+        <div className="mb-10">
+          <span className="text-indigo/40 dark:text-vanilla/40 text-[10px] font-black uppercase tracking-[0.3em] mb-2 block">Quick Action</span>
+          <h3 className="text-3xl font-black uppercase tracking-tighter text-indigo dark:text-vanilla">
             {t('add_transaction')}
           </h3>
         </div>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+        <div className="flex bg-indigo/5 dark:bg-vanilla/5 p-1 rounded-2xl border border-indigo/10 dark:border-vanilla/10">
           {['expense', 'income'].map((tType) => (
             <button
               key={tType}
               type="button"
               onClick={() => { setType(tType as TransactionType); setValue('type', tType as TransactionType); setValue('category', ''); }}
-              className={`flex-1 py-2 text-xs font-bold rounded-lg transition-all ${
-                type === tType ? 'bg-white dark:bg-slate-800 shadow-sm text-blue-600' : 'text-slate-400'
+              className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${
+                type === tType 
+                  ? "bg-indigo text-vanilla shadow-lg shadow-indigo/20 dark:bg-vanilla dark:text-indigo" 
+                  : "text-indigo/40 dark:text-vanilla/40 hover:text-indigo dark:hover:text-vanilla"
               }`}
             >
-              {t(tType).toUpperCase()}
+              {t(tType)}
             </button>
           ))}
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           <div>
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('amount')}</label>
+            <label className="text-[10px] font-black uppercase tracking-widest mb-3 block text-indigo/40 dark:text-vanilla/40">{t('amount')}</label>
             <div className="relative">
-              <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400 text-lg">Rp</span>
+              <span className="absolute left-0 top-1/2 -translate-y-1/2 font-black text-3xl opacity-20 text-indigo dark:text-vanilla">Rp</span>
               <input 
                 {...register('amount')} 
                 placeholder="0"
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl py-4 pl-12 pr-4 text-2xl font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                type="number"
+                min="0"
+                className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 text-indigo dark:text-vanilla py-6 pl-14 pr-4 text-5xl font-black tracking-tighter outline-none focus:border-indigo dark:focus:border-vanilla transition-all"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <div>
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('date')}</label>
+              <label className="text-[10px] font-black uppercase tracking-widest mb-3 block text-indigo/40 dark:text-vanilla/40">{t('date')}</label>
               <input 
                 {...register('date')} 
                 type="date"
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 outline-none"
+                className="w-full bg-indigo/5 dark:bg-vanilla/5 border border-indigo/10 dark:border-vanilla/10 text-indigo dark:text-vanilla rounded-2xl p-4 text-xs font-bold outline-none focus:border-indigo dark:focus:border-vanilla"
               />
             </div>
             <div>
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('category')}</label>
+              <label className="text-[10px] font-black uppercase tracking-widest mb-3 block text-indigo/40 dark:text-vanilla/40">{t('category')}</label>
               <select 
                 {...register('category')}
-                className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm font-medium text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 outline-none appearance-none"
+                className="w-full bg-indigo/5 dark:bg-vanilla/5 border border-indigo/10 dark:border-vanilla/10 text-indigo dark:text-vanilla rounded-2xl p-4 text-xs font-bold outline-none appearance-none focus:border-indigo dark:focus:border-vanilla"
               >
-                <option value="" disabled>PILIH</option>
+                <option value="" disabled className="bg-vanilla dark:bg-indigo">PILIH</option>
                 {categories.map(c => (
-                  <option key={c} value={c}>{c}</option>
+                  <option key={c} value={c} className="bg-vanilla dark:bg-indigo text-indigo dark:text-vanilla">{c}</option>
                 ))}
               </select>
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 block">{t('description')}</label>
+            <label className="text-[10px] font-black uppercase tracking-widest mb-3 block text-indigo/40 dark:text-vanilla/40">{t('description')}</label>
             <input 
               {...register('description')} 
               placeholder="..."
-              className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 outline-none"
+              className="w-full bg-indigo/5 dark:bg-vanilla/5 border border-indigo/10 dark:border-vanilla/10 text-indigo dark:text-vanilla rounded-2xl p-4 text-xs font-bold outline-none focus:border-indigo dark:focus:border-vanilla"
             />
           </div>
         </div>
 
         <button 
           type="submit" 
-          className="modern-btn w-full py-4 shadow-lg shadow-blue-500/20"
+          className="modern-btn w-full py-5 active:scale-95 disabled:opacity-50"
           disabled={create.isPending || update.isPending}
         >
-          <Save size={18} />
+          <Save size={16} />
           {transaction ? t('save') : t('add_transaction')}
         </button>
       </form>
@@ -138,25 +142,20 @@ export function BentoTopCatCard({ transactions }: { transactions: Transaction[] 
 
   return (
     <div className="flex flex-col h-full">
-      <div className="mb-8">
-        <h3 className="text-lg font-bold">{t('financial_efficiency')}</h3>
-        <p className="text-xs text-muted font-medium">{t('category')} Terbesar</p>
-      </div>
-      
       {!data.length ? (
-        <div className="flex-1 flex items-center justify-center text-slate-300 italic text-sm">{t('history')} Kosong</div>
+        <div className="flex-1 flex items-center justify-center text-[10px] font-black uppercase tracking-widest text-slate-300 dark:text-slate-700 italic">No Data Analysis</div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-8">
           {data.map((item, idx) => (
-            <div key={item.name} className="space-y-2">
-              <div className="flex justify-between items-center text-xs font-bold">
-                <span className="text-slate-500">{item.name}</span>
-                <span className="text-slate-900 dark:text-white">{formatCurrency(item.value)}</span>
+            <div key={item.name} className="group">
+              <div className="flex justify-between items-end mb-3">
+                <span className="text-[10px] font-black uppercase tracking-widest text-indigo/40 group-hover:text-indigo dark:text-vanilla/40 dark:group-hover:text-vanilla transition-colors">{item.name}</span>
+                <span className="text-sm font-black tracking-tight text-indigo dark:text-vanilla">{formatCurrency(item.value)}</span>
               </div>
-              <div className="h-2 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+              <div className="h-1.5 bg-indigo/5 dark:bg-indigo-muted rounded-full overflow-hidden">
                 <div 
-                  className={`h-full rounded-full transition-all duration-1000 ${
-                    idx === 0 ? 'bg-blue-600' : 'bg-slate-400'
+                  className={`h-full rounded-full transition-all duration-1000 shadow-sm ${
+                    idx === 0 ? 'bg-indigo shadow-indigo/20' : 'bg-indigo/20 dark:bg-vanilla/10'
                   }`}
                   style={{ width: `${(item.value / data[0].value) * 100}%` }}
                 />

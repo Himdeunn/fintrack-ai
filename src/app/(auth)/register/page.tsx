@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { registerUser } from '@/lib/actions/auth'
 import Link from 'next/link'
 import { useLanguage } from '@/components/providers/LanguageProvider'
-import { UserPlus, Mail, Lock, User, ArrowRight, Loader2 } from 'lucide-react'
+import { User, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react'
 
 export default function RegisterPage() {
   const { language, setLanguage } = useLanguage()
@@ -26,68 +26,73 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center items-center p-6 transition-colors text-slate-900 dark:text-white">
+    <div className="min-h-screen bg-vanilla dark:bg-indigo flex flex-col justify-center items-center p-6 transition-colors text-indigo dark:text-vanilla">
       {/* Lang Switcher */}
-      <div className="absolute top-8 right-8 flex bg-white dark:bg-slate-900 p-1 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
-        <button onClick={() => setLanguage('id')} className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${language === 'id' ? 'bg-slate-100 dark:bg-slate-800 shadow-inner' : 'text-slate-400'}`}>ID</button>
-        <button onClick={() => setLanguage('en')} className={`px-4 py-1.5 text-xs font-bold rounded-lg transition-all ${language === 'en' ? 'bg-slate-100 dark:bg-slate-800 shadow-inner' : 'text-slate-400'}`}>EN</button>
+      <div className="absolute top-8 right-8 flex bg-white/40 dark:bg-indigo-muted/40 backdrop-blur-md p-1 rounded-2xl border border-indigo/10 dark:border-vanilla/10">
+        <button onClick={() => setLanguage('id')} className={`px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${language === 'id' ? 'bg-indigo text-vanilla shadow-lg dark:bg-vanilla dark:text-indigo' : 'text-indigo/40 dark:text-vanilla/40'}`}>ID</button>
+        <button onClick={() => setLanguage('en')} className={`px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${language === 'en' ? 'bg-indigo text-vanilla shadow-lg dark:bg-vanilla dark:text-indigo' : 'text-indigo/40 dark:text-vanilla/40'}`}>EN</button>
       </div>
 
       <div className="w-full max-w-md">
-        <div className="text-center mb-10">
-          <div className="inline-flex w-16 h-16 bg-blue-600 rounded-2xl items-center justify-center text-white shadow-xl shadow-blue-500/20 mb-6">
-            <UserPlus size={32} />
-          </div>
-          <h1 className="text-3xl font-extrabold tracking-tight mb-2">FinTrack.</h1>
-          <p className="text-slate-500 font-medium">{language === 'id' ? 'Daftar akun baru Anda.' : 'Create your new account.'}</p>
+        <div className="text-center mb-12">
+          <Link href="/" className="inline-flex items-center justify-center gap-3 mb-8 group">
+            <div className="w-14 h-14 bg-indigo dark:bg-vanilla rounded-2xl flex items-center justify-center font-black text-vanilla dark:text-indigo text-2xl shadow-2xl shadow-indigo/20 group-hover:scale-110 transition-all duration-500">
+              F
+            </div>
+            <div className="text-left">
+              <h1 className="text-2xl font-black uppercase tracking-tighter leading-none">FinTrack AI</h1>
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Financial Freedom</span>
+            </div>
+          </Link>
+          <p className="text-sm font-medium opacity-60">{language === 'id' ? 'Buat akun untuk mulai mengelola.' : 'Create an account to start managing.'}</p>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-2xl shadow-slate-200/50 dark:shadow-none">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{language === 'id' ? 'Nama Lengkap' : 'Full Name'}</label>
+        <div className="modern-card !p-8 sm:!p-12 shadow-2xl">
+          <form onSubmit={handleSubmit} className="space-y-8">
+            <div className="space-y-3">
+              <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Nama Lengkap' : 'Full Name'}</label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <User className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
                 <input
                   name="fullName"
                   type="text"
                   required
                   placeholder="John Doe"
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                  className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-bold placeholder:opacity-100"
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{language === 'id' ? 'Email' : 'Email Address'}</label>
+            <div className="space-y-3">
+              <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Email' : 'Email Address'}</label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <Mail className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
                 <input
                   name="email"
                   type="email"
                   required
-                  placeholder="name@company.com"
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                  placeholder="admin@fintrack.ai"
+                  className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-bold placeholder:opacity-100"
                 />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi' : 'Password'}</label>
+            <div className="space-y-3">
+              <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi' : 'Password'}</label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
+                <Lock className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
                 <input
                   name="password"
                   type="password"
                   required
                   placeholder="••••••••"
-                  className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl py-3 pl-12 pr-4 text-slate-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600"
+                  className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-bold placeholder:opacity-100"
                 />
               </div>
             </div>
 
             {error && (
-              <div className="p-4 bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-900/30 rounded-xl text-rose-600 text-xs font-bold text-center">
+              <div className="p-5 bg-rose-50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/30 rounded-2xl text-rose-600 text-[10px] font-black uppercase tracking-widest text-center animate-shake">
                 {error}
               </div>
             )}
@@ -95,18 +100,18 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="modern-btn w-full py-4 shadow-lg shadow-blue-500/20"
+              className="modern-btn w-full py-5 active:scale-95 disabled:opacity-50"
             >
               {loading ? <Loader2 className="animate-spin" /> : language === 'id' ? 'Daftar Sekarang' : 'Register Now'}
               {!loading && <ArrowRight size={18} />}
             </button>
           </form>
 
-          <div className="mt-8 pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
-            <p className="text-sm text-slate-500">
-              {language === 'id' ? 'Sudah punya akun?' : 'Already have an account?'}{' '}
-              <Link href="/login" className="text-blue-600 font-bold hover:underline">
-                {language === 'id' ? 'Masuk' : 'Sign In'}
+          <div className="mt-12 pt-8 border-t border-indigo/5 dark:border-vanilla/5 text-center">
+            <p className="text-xs font-medium opacity-60">
+              {language === 'id' ? 'Sudah punya akun?' : "Already have an account?"}{' '}
+              <Link href="/login" className="text-indigo dark:text-vanilla font-black hover:underline uppercase tracking-widest text-[10px] ml-2">
+                {language === 'id' ? 'Masuk' : 'Login'}
               </Link>
             </p>
           </div>
