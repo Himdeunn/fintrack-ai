@@ -102,9 +102,17 @@ export function MainNavbar({ user }: { user?: User | null }) {
                   {user.fullName?.[0] || user.email[0]}
                 </div>
                 
-                {/* Simple Dropdown for Logout */}
+                {/* Simple Dropdown for Profile & Logout */}
                 <div className="absolute right-0 top-full pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
-                  <div className="bg-white dark:bg-indigo-muted border border-indigo/10 dark:border-vanilla/10 rounded-2xl shadow-2xl p-2 min-w-[160px]">
+                  <div className="bg-white dark:bg-indigo-muted border border-indigo/10 dark:border-vanilla/10 rounded-2xl shadow-2xl p-2 min-w-[180px]">
+                    <Link
+                      href="/dashboard/profile"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-black uppercase tracking-widest text-indigo dark:text-vanilla hover:bg-indigo/5 dark:hover:bg-vanilla/5 rounded-xl transition-all mb-1"
+                    >
+                      <LayoutGrid size={14} className="opacity-40" />
+                      {language === 'id' ? 'Profil Saya' : 'My Profile'}
+                    </Link>
+                    <div className="h-px bg-indigo/5 dark:bg-vanilla/5 my-1 mx-2" />
                     <form action={logoutUser}>
                       <button
                         type="submit"
