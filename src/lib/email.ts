@@ -6,10 +6,10 @@ import { Resend } from 'resend'
  * Ganti 're_123456789' dengan API Key Anda dari https://resend.com
  * Anda bisa menyimpan API Key ini di file .env dengan nama RESEND_API_KEY
  */
-const resend = new Resend(process.env.RESEND_API_KEY || 're_123456789')
+const resend = new Resend(process.env.RESEND_API_KEY || 're_ADrvobfv_J5zVGagwsKp4Dq5AoKEnUarY')
 
 export async function sendPasswordResetEmail(email: string, token: string, language: string = 'en') {
-  const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/reset-password?token=${token}`
+  const resetLink = `https://himdeunn.my.id/reset-password?token=${token}`
 
   const subject = language === 'id' ? 'Atur Ulang Kata Sandi - FinTrack AI' : 'Password Reset Request - FinTrack AI'
   
