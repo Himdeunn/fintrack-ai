@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   title: "FinTrack AI - Smart Finance Tracker",
   description: "Manage your finances with Gemini AI insights and modern minimalist design.",
   icons: {
-    icon: "/image.png",
+    icon: "/favicon.png",
   },
 };
 
