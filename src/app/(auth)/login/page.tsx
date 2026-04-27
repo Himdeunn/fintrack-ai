@@ -62,7 +62,12 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-3">
-              <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi' : 'Password'}</label>
+              <div className="flex justify-between items-center ml-1">
+                <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest">{language === 'id' ? 'Kata Sandi' : 'Password'}</label>
+                <Link href="/forgot-password" size={14} className="text-[9px] font-black uppercase tracking-widest text-indigo/40 hover:text-indigo dark:text-vanilla/40 dark:hover:text-vanilla transition-colors">
+                  {language === 'id' ? 'Lupa?' : 'Forgot?'}
+                </Link>
+              </div>
               <div className="relative">
                 <Lock className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
                 <input
