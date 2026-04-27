@@ -5,6 +5,7 @@ import { registerUser } from '@/lib/actions/auth'
 import Link from 'next/link'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { User, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react'
+import { toast } from 'sonner'
 
 export default function RegisterPage() {
   const { language, setLanguage } = useLanguage()
@@ -20,6 +21,7 @@ export default function RegisterPage() {
     const result = await registerUser(formData)
 
     if (result?.error) {
+      toast.error(result.error)
       setError(result.error)
       setLoading(false)
     }

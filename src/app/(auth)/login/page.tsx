@@ -5,6 +5,7 @@ import { loginUser } from '@/lib/actions/auth'
 import Link from 'next/link'
 import { useLanguage } from '@/components/providers/LanguageProvider'
 import { Mail, Lock, ArrowRight, Loader2, Sparkles } from 'lucide-react'
+import { toast } from 'sonner'
 
 export default function LoginPage() {
   const { language, setLanguage } = useLanguage()
@@ -20,6 +21,7 @@ export default function LoginPage() {
     const result = await loginUser(formData)
 
     if (result?.error) {
+      toast.error(result.error)
       setError(result.error)
       setLoading(false)
     }
