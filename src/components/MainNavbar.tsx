@@ -71,14 +71,12 @@ export function MainNavbar({ user }: { user?: User | null }) {
         {/* Actions */}
         <div className="flex items-center gap-2 md:gap-4">
           {/* Mobile Menu Toggle */}
-          {user && (
-            <button 
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-dusk-blue dark:text-azure-mist hover:bg-dusk-blue/5 dark:hover:bg-azure-mist/5 rounded-full transition-all"
-            >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          )}
+          <button 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 text-dusk-blue dark:text-azure-mist hover:bg-dusk-blue/5 dark:hover:bg-azure-mist/5 rounded-full transition-all"
+          >
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
 
           {/* Theme & Language Group - Compact */}
           <div className="hidden md:flex items-center gap-1 bg-dusk-blue/5 dark:bg-azure-mist/5 p-1 rounded-full border border-dusk-blue/5 dark:border-azure-mist/5">
@@ -98,7 +96,7 @@ export function MainNavbar({ user }: { user?: User | null }) {
           </div>
 
           {user && (
-            <div className="flex items-center gap-2 md:gap-4">
+            <div className="hidden lg:flex items-center gap-2 md:gap-4">
               <div className="hidden sm:flex flex-col items-end">
                 <span className="text-[8px] font-black uppercase tracking-widest text-dusk-blue/40 dark:text-azure-mist/40 leading-none">
                   {t('welcome')}
@@ -140,7 +138,7 @@ export function MainNavbar({ user }: { user?: User | null }) {
           )}
 
           {!user && (
-            <Link href="/login" className="bg-dusk-blue dark:bg-azure-mist text-azure-mist dark:text-dusk-blue px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-dusk-blue/20 hover:scale-105 active:scale-95 transition-all">
+            <Link href="/login" className="hidden lg:flex bg-dusk-blue dark:bg-azure-mist text-azure-mist dark:text-dusk-blue px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-dusk-blue/20 hover:scale-105 active:scale-95 transition-all">
               {language === 'id' ? 'MULAI' : 'GET STARTED'}
             </Link>
           )}
@@ -148,47 +146,59 @@ export function MainNavbar({ user }: { user?: User | null }) {
       </div>
 
       {/* Mobile Menu Dropdown */}
-      {user && mobileMenuOpen && (
+      {mobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 mt-4 px-2 animate-in fade-in slide-in-from-top-4 duration-300">
           <div className="bg-white/95 dark:bg-dusk-blue/95 backdrop-blur-xl border border-dusk-blue/10 dark:border-azure-mist/10 rounded-[2rem] p-4 shadow-2xl space-y-2">
-            {navLinks.map((link) => {
-              const isActive = pathname === link.href
-              return (
+            {user ? (
+              <>
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-4 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
+                        isActive 
+                          ? 'bg-dusk-blue text-azure-mist dark:bg-azure-mist dark:text-dusk-blue' 
+                          : 'text-dusk-blue/40 hover:text-dusk-blue dark:text-azure-mist/40 dark:hover:text-azure-mist'
+                      }`}
+                    >
+                      <link.icon size={16} />
+                      {link.label}
+                    </Link>
+                  )
+                })}
+                
+                {/* Added Profile & Logout for Mobile */}
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  href="/dashboard/profile"
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-4 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all duration-300 ${
-                    isActive 
-                      ? 'bg-dusk-blue text-azure-mist dark:bg-azure-mist dark:text-dusk-blue' 
-                      : 'text-dusk-blue/40 hover:text-dusk-blue dark:text-azure-mist/40 dark:hover:text-azure-mist'
-                  }`}
+                  className="flex items-center gap-4 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-dusk-blue/40 hover:text-dusk-blue dark:text-azure-mist/40 dark:hover:text-azure-mist transition-all"
                 >
-                  <link.icon size={16} />
-                  {link.label}
+                  <LayoutGrid size={16} className="opacity-40" />
+                  {language === 'id' ? 'Profil Saya' : 'My Profile'}
                 </Link>
-              )
-            })}
-            
-            {/* Added Profile & Logout for Mobile */}
-            <Link
-              href="/dashboard/profile"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-4 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-dusk-blue/40 hover:text-dusk-blue dark:text-azure-mist/40 dark:hover:text-azure-mist transition-all"
-            >
-              <LayoutGrid size={16} className="opacity-40" />
-              {language === 'id' ? 'Profil Saya' : 'My Profile'}
-            </Link>
-            
-            <form action={logoutUser}>
-              <button
-                type="submit"
-                className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all"
+                
+                <form action={logoutUser}>
+                  <button
+                    type="submit"
+                    className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all"
+                  >
+                    <LogOut size={16} />
+                    {t('logout')}
+                  </button>
+                </form>
+              </>
+            ) : (
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-4 px-6 py-6 rounded-2xl text-xs font-black uppercase tracking-widest bg-dusk-blue text-azure-mist dark:bg-azure-mist dark:text-dusk-blue shadow-xl transition-all"
               >
-                <LogOut size={16} />
-                {t('logout')}
-              </button>
-            </form>
+                {language === 'id' ? 'MULAI SEKARANG' : 'GET STARTED NOW'}
+              </Link>
+            )}
             
             <div className="h-px bg-dusk-blue/10 dark:bg-azure-mist/10 my-4 mx-4" />
             
