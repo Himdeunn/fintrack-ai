@@ -31,10 +31,10 @@ export function MainNavbar({ user }: { user?: User | null }) {
   ]
 
   return (
-    <nav className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-[calc(100%-1.5rem)] md:w-fit md:min-w-[700px] lg:min-w-[800px] max-w-7xl px-4 py-2 rounded-[2rem] md:rounded-full border border-dusk-blue/10 dark:border-azure-mist/10 shadow-2xl backdrop-blur-2xl ${
+    <nav className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 w-[calc(100%-1.5rem)] md:w-fit md:min-w-[700px] lg:w-[calc(100%-4rem)] lg:max-w-7xl px-4 py-2 rounded-[2rem] md:rounded-full border border-dusk-blue/10 dark:border-azure-mist/10 shadow-2xl backdrop-blur-2xl ${
       isScrolled ? 'bg-white/90 dark:bg-dusk-blue/90' : 'bg-white/60 dark:bg-dusk-blue/60'
     }`}>
-      <div className="flex items-center justify-between gap-8 px-2 md:px-6">
+      <div className="flex items-center justify-between gap-4 md:gap-8 lg:gap-12 px-2 md:px-6">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3 group">
           <img 
@@ -169,6 +169,26 @@ export function MainNavbar({ user }: { user?: User | null }) {
                 </Link>
               )
             })}
+            
+            {/* Added Profile & Logout for Mobile */}
+            <Link
+              href="/dashboard/profile"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-4 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-dusk-blue/40 hover:text-dusk-blue dark:text-azure-mist/40 dark:hover:text-azure-mist transition-all"
+            >
+              <LayoutGrid size={16} className="opacity-40" />
+              {language === 'id' ? 'Profil Saya' : 'My Profile'}
+            </Link>
+            
+            <form action={logoutUser}>
+              <button
+                type="submit"
+                className="w-full flex items-center gap-4 px-6 py-4 rounded-2xl text-xs font-black uppercase tracking-widest text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition-all"
+              >
+                <LogOut size={16} />
+                {t('logout')}
+              </button>
+            </form>
             
             <div className="h-px bg-dusk-blue/10 dark:bg-azure-mist/10 my-4 mx-4" />
             

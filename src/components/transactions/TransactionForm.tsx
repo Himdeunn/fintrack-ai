@@ -143,7 +143,7 @@ export function BentoTopCatCard({ transactions }: { transactions: Transaction[] 
   return (
     <div className="flex flex-col h-full">
       {!data.length ? (
-        <div className="flex-1 flex items-center justify-center text-[10px] font-black uppercase tracking-widest text-slate-300 dark:text-slate-700 italic">No Data Analysis</div>
+        <div className="flex-1 flex items-center justify-center text-[10px] font-black uppercase tracking-widest text-dusk-blue/30 dark:text-azure-mist/70 italic">No Data Analysis</div>
       ) : (
         <div className="space-y-8">
           {data.map((item, idx) => (

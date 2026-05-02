@@ -31,6 +31,14 @@ body {
   @apply transition-colors duration-500 selection:bg-dusk-blue selection:text-azure-mist;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  @apply text-dusk-blue dark:text-azure-mist transition-colors;
+}
+
+p {
+  @apply text-dusk-blue/70 dark:text-azure-mist/70 transition-colors;
+}
+
 @layer components {
   .modern-card {
     @apply bg-white dark:bg-dusk-blue-muted border border-dusk-blue/5 dark:border-azure-mist/10 rounded-[48px] p-10 transition-all duration-700 shadow-2xl shadow-dusk-blue/5 dark:shadow-none hover:shadow-dusk-blue/10 hover:-translate-y-1 overflow-hidden relative;
