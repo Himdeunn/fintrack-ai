@@ -39,10 +39,10 @@ export default function PrivacyPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white dark:bg-indigo-muted p-6 md:p-12 lg:p-20 transition-colors selection:bg-indigo selection:text-white">
+    <div className="min-h-screen bg-white dark:bg-dusk-blue-muted p-6 md:p-12 lg:p-20 transition-colors selection:bg-dusk-blue selection:text-white">
       <div className="max-w-4xl mx-auto">
         <header className="mb-16">
-          <Link href="/" className="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-indigo transition-all group">
+          <Link href="/" className="inline-flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-dusk-blue transition-all group">
             <div className="p-2 rounded-lg bg-slate-50 dark:bg-slate-900 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors">
               <ArrowLeft size={14} />
             </div>
@@ -54,24 +54,24 @@ export default function PrivacyPage() {
           <div className="mb-20">
             <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-8">
               {language === 'id' ? 'Privasi' : 'Data'}<br/>
-              <span className="text-indigo">{language === 'id' ? 'Data.' : 'Privacy.'}</span>
+              <span className="text-dusk-blue">{language === 'id' ? 'Data.' : 'Privacy.'}</span>
             </h1>
             <p className="text-lg font-medium text-slate-500 dark:text-slate-400 max-w-xl leading-relaxed">
               {language === 'id' 
-                ? 'Kebijakan enkripsi dan perlindungan data untuk ekosistem FinTrack AI.' 
-                : 'Encryption and data protection policies for the FinTrack AI ecosystem.'}
+                ? 'Kebijakan enkripsi dan perlindungan data untuk ekosistem Avaraé.' 
+                : 'Encryption and data protection policies for the Avaraé ecosystem.'}
             </p>
           </div>
 
           <div className="grid gap-6">
             {content.map((item, idx) => (
-              <section key={idx} className="group p-8 rounded-[32px] border border-slate-100 bg-white dark:bg-indigo-muted dark:border-slate-900 hover:border-indigo/20 dark:hover:border-blue-900/50 hover:shadow-2xl hover:shadow-indigo/5 transition-all duration-500">
+              <section key={idx} className="group p-8 rounded-[32px] border border-slate-100 bg-white dark:bg-dusk-blue-muted dark:border-slate-900 hover:border-dusk-blue/20 dark:hover:border-blue-900/50 hover:shadow-2xl hover:shadow-dusk-blue/5 transition-all duration-500">
                 <div className="flex gap-8 items-start">
-                  <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-400 shrink-0 group-hover:bg-indigo group-hover:text-white transition-all duration-500 shadow-sm">
+                  <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-400 shrink-0 group-hover:bg-dusk-blue group-hover:text-white transition-all duration-500 shadow-sm">
                     <item.icon size={28} />
                   </div>
                   <div>
-                    <h2 className="text-xs font-black uppercase tracking-widest mb-4 text-slate-900 dark:text-white group-hover:text-indigo transition-colors">
+                    <h2 className="text-xs font-black uppercase tracking-widest mb-4 text-slate-900 dark:text-white group-hover:text-dusk-blue transition-colors">
                       {language === 'id' ? item.titleId : item.titleEn}
                     </h2>
                     <p className="text-sm font-medium leading-relaxed text-slate-500 dark:text-slate-400">

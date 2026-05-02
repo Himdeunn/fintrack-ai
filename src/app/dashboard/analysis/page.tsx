@@ -20,10 +20,10 @@ export default function AnalysisPage() {
     <div className="grid grid-cols-12 gap-8">
        {/* Header */}
        <div className="col-span-12 mb-10">
-        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40 mb-4 block">
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-4 block">
           {language === 'id' ? 'Intelejensi Finansial AI' : 'AI Financial Intelligence'}
         </span>
-        <h1 className="text-6xl font-black uppercase tracking-tighter text-indigo dark:text-vanilla leading-none">
+        <h1 className="text-6xl font-black uppercase tracking-tighter text-dusk-blue dark:text-azure-mist leading-none">
           {language === 'id' ? 'Analisis' : 'Deep'} <span className="opacity-40">{language === 'id' ? 'Mendalam' : 'Analysis'}</span>
         </h1>
       </div>
@@ -38,7 +38,7 @@ export default function AnalysisPage() {
       {/* Charts */}
       <div className="col-span-12 lg:col-span-7 space-y-8">
         <div className="modern-card min-h-[400px]">
-          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40 mb-10 block">
+          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-10 block">
             {language === 'id' ? 'Distribusi Pengeluaran' : 'Expense Distribution'}
           </span>
           <BentoPieChart transactions={allTransactions} />

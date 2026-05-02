@@ -5,22 +5,22 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --color-vanilla: #F0E7D5;
-  --color-indigo: #212842;
-  --color-vanilla-muted: #e5dbc5;
-  --color-indigo-muted: #2d3654;
+  --color-azure-mist: #F0FFFF;
+  --color-dusk-blue: #26538D;
+  --color-azure-mist-muted: #e0fafa;
+  --color-dusk-blue-muted: #2d62a6;
   
   --font-sans: 'Inter', var(--font-sans);
 }
 
 :root {
-  --background: var(--color-vanilla);
-  --foreground: var(--color-indigo);
+  --background: var(--color-azure-mist);
+  --foreground: var(--color-dusk-blue);
 }
 
 .dark {
-  --background: var(--color-indigo);
-  --foreground: var(--color-vanilla);
+  --background: var(--color-dusk-blue);
+  --foreground: var(--color-azure-mist);
 }
 
 body {
@@ -28,36 +28,36 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  @apply transition-colors duration-500 selection:bg-indigo selection:text-vanilla;
+  @apply transition-colors duration-500 selection:bg-dusk-blue selection:text-azure-mist;
 }
 
 @layer components {
   .modern-card {
-    @apply bg-white dark:bg-indigo-muted border border-indigo/5 dark:border-vanilla/10 rounded-[48px] p-10 transition-all duration-700 shadow-2xl shadow-indigo/5 dark:shadow-none hover:shadow-indigo/10 hover:-translate-y-1 overflow-hidden relative;
+    @apply bg-white dark:bg-dusk-blue-muted border border-dusk-blue/5 dark:border-azure-mist/10 rounded-[48px] p-10 transition-all duration-700 shadow-2xl shadow-dusk-blue/5 dark:shadow-none hover:shadow-dusk-blue/10 hover:-translate-y-1 overflow-hidden relative;
   }
   
   .modern-btn {
-    @apply relative overflow-hidden rounded-2xl px-8 py-4 font-black uppercase tracking-widest text-[10px] bg-indigo text-vanilla shadow-xl shadow-indigo/20 transition-all duration-500 hover:bg-indigo-muted hover:shadow-indigo/40 active:scale-95 flex items-center justify-center gap-3 dark:bg-vanilla dark:text-indigo;
+    @apply relative overflow-hidden rounded-2xl px-8 py-4 font-black uppercase tracking-widest text-[10px] bg-dusk-blue text-azure-mist shadow-xl shadow-dusk-blue/20 transition-all duration-500 hover:bg-dusk-blue-muted hover:shadow-dusk-blue/40 active:scale-95 flex items-center justify-center gap-3 dark:bg-azure-mist dark:text-dusk-blue;
   }
   
   .modern-btn-secondary {
-    @apply border border-indigo/20 bg-transparent text-indigo hover:bg-indigo/5 dark:border-vanilla/20 dark:text-vanilla dark:hover:bg-vanilla/5;
+    @apply border border-dusk-blue/20 bg-transparent text-dusk-blue hover:bg-dusk-blue/5 dark:border-azure-mist/20 dark:text-azure-mist dark:hover:bg-azure-mist/5;
   }
 
   .text-rich-muted {
-    @apply text-indigo/40 dark:text-vanilla/40 font-black uppercase tracking-[0.3em] text-[10px];
+    @apply text-dusk-blue/40 dark:text-azure-mist/40 font-black uppercase tracking-[0.3em] text-[10px];
   }
 
   .sentence-rich {
-    @apply text-base font-medium leading-relaxed text-indigo/60 dark:text-vanilla/60;
+    @apply text-base font-medium leading-relaxed text-dusk-blue/60 dark:text-azure-mist/60;
   }
   
   .heading-hero {
-    @apply text-6xl md:text-8xl font-black uppercase leading-[0.85] tracking-tighter text-indigo dark:text-vanilla;
+    @apply text-6xl md:text-8xl font-black uppercase leading-[0.85] tracking-tighter text-dusk-blue dark:text-azure-mist;
   }
 
   .list-button {
-    @apply w-full flex items-center justify-between p-6 rounded-2xl bg-white/40 dark:bg-indigo-muted/20 border border-transparent hover:border-indigo/10 hover:bg-white/60 hover:shadow-xl hover:shadow-indigo/5 transition-all duration-500 text-left;
+    @apply w-full flex items-center justify-between p-6 rounded-2xl bg-white/40 dark:bg-dusk-blue-muted/20 border border-transparent hover:border-dusk-blue/10 hover:bg-white/60 hover:shadow-xl hover:shadow-dusk-blue/5 transition-all duration-500 text-left;
   }
 }
 
@@ -65,7 +65,7 @@ body {
 input::placeholder, 
 textarea::placeholder, 
 select::placeholder {
-  @apply text-indigo/30 dark:text-vanilla/30 opacity-100 font-bold;
+  @apply text-dusk-blue/30 dark:text-azure-mist/30 opacity-100 font-bold;
 }
 
 /* Hide Spin Buttons for Number Inputs */
@@ -81,7 +81,7 @@ input[type=number] {
 
 /* Custom Utilities */
 .glass-effect {
-  @apply backdrop-blur-xl bg-white/70 dark:bg-indigo-muted/70;
+  @apply backdrop-blur-xl bg-white/70 dark:bg-dusk-blue-muted/70;
 }
 
 ::-webkit-scrollbar {

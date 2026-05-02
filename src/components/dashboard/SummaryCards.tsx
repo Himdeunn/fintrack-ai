@@ -13,7 +13,7 @@ export function BentoSummaryCards({ transactions }: { transactions: Transaction[
   const balance = income - expense
 
   const stats = [
-    { label: 'balance', value: balance, icon: Wallet, color: 'text-indigo dark:text-vanilla', bg: 'bg-indigo/5 dark:bg-vanilla/5' },
+    { label: 'balance', value: balance, icon: Wallet, color: 'text-dusk-blue dark:text-azure-mist', bg: 'bg-dusk-blue/5 dark:bg-azure-mist/5' },
     { label: 'income', value: income, icon: TrendingUp, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
     { label: 'expense', value: expense, icon: TrendingDown, color: 'text-rose-500', bg: 'bg-rose-500/10' },
   ]
@@ -30,10 +30,10 @@ export function BentoSummaryCards({ transactions }: { transactions: Transaction[
               <s.icon size={28} />
             </div>
             <div>
-              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40 mb-1 block">
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-1 block">
                 {t(s.label)}
               </span>
-              <div className="text-3xl font-black tracking-tight text-indigo dark:text-vanilla">
+              <div className="text-3xl font-black tracking-tight text-dusk-blue dark:text-azure-mist">
                 {formatCurrency(s.value)}
               </div>
             </div>

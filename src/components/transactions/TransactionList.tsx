@@ -20,27 +20,27 @@ export function BentoTxList({ month }: { month: string }) {
   const [page, setPage] = useState(1)
   const itemsPerPage = 5
 
-  if (isLoading) return <div className="h-[600px] bg-indigo/5 dark:bg-vanilla/5 animate-pulse rounded-[40px]" />
+  if (isLoading) return <div className="h-[600px] bg-dusk-blue/5 dark:bg-azure-mist/5 animate-pulse rounded-[40px]" />
 
   const totalPages = Math.ceil(transactions.length / itemsPerPage)
   const paginatedTransactions = transactions.slice((page - 1) * itemsPerPage, page * itemsPerPage)
 
   return (
-    <div className="flex flex-col h-full bg-white dark:bg-indigo-muted rounded-[48px] border border-indigo/5 dark:border-vanilla/10 overflow-hidden shadow-2xl shadow-indigo/5">
-      <div className="p-10 flex justify-between items-end bg-white dark:bg-indigo-muted">
+    <div className="flex flex-col h-full bg-white dark:bg-dusk-blue-muted rounded-[48px] border border-dusk-blue/5 dark:border-azure-mist/10 overflow-hidden shadow-2xl shadow-dusk-blue/5">
+      <div className="p-10 flex justify-between items-end bg-white dark:bg-dusk-blue-muted">
         <div>
-          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40 mb-2 block">{t('history')}</span>
-          <h3 className="text-4xl font-black uppercase tracking-tighter text-indigo dark:text-vanilla">{t('ledger')}</h3>
+          <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-2 block">{t('history')}</span>
+          <h3 className="text-4xl font-black uppercase tracking-tighter text-dusk-blue dark:text-azure-mist">{t('ledger')}</h3>
         </div>
-        <div className="bg-indigo/5 dark:bg-vanilla/5 px-6 py-2 rounded-full border border-indigo/10 dark:border-vanilla/10 shadow-sm">
-          <span className="text-[10px] font-black uppercase tracking-widest text-indigo/60 dark:text-vanilla/60">{transactions.length} items</span>
+        <div className="bg-dusk-blue/5 dark:bg-azure-mist/5 px-6 py-2 rounded-full border border-dusk-blue/10 dark:border-azure-mist/10 shadow-sm">
+          <span className="text-[10px] font-black uppercase tracking-widest text-dusk-blue/60 dark:text-azure-mist/60">{transactions.length} items</span>
         </div>
       </div>
 
       <div className="p-10 space-y-4 flex-1">
         {!transactions.length ? (
           <div className="py-32 text-center">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/20 dark:text-vanilla/20 italic">DATA_STREAM_EMPTY</span>
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/20 dark:text-azure-mist/20 italic">DATA_STREAM_EMPTY</span>
           </div>
         ) : (
           <div className="grid gap-4">
@@ -50,26 +50,26 @@ export function BentoTxList({ month }: { month: string }) {
                 onClick={() => setEditTarget(tItem)}
                 role="button"
                 tabIndex={0}
-                className="list-button group flex-col sm:flex-row gap-6 items-start sm:items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo focus:ring-offset-2"
+                className="list-button group flex-col sm:flex-row gap-6 items-start sm:items-center cursor-pointer focus:outline-none focus:ring-2 focus:ring-dusk-blue focus:ring-offset-2"
                 onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setEditTarget(tItem); }}
               >
                 <div className="flex items-center gap-6 w-full sm:w-auto">
-                  <div className="w-12 h-12 shrink-0 rounded-xl bg-indigo/5 dark:bg-vanilla/5 flex items-center justify-center text-indigo/60 dark:text-vanilla/60 group-hover:bg-indigo group-hover:text-vanilla dark:group-hover:bg-vanilla dark:group-hover:text-indigo shadow-sm border border-indigo/10 dark:border-vanilla/10 transition-all duration-500">
+                  <div className="w-12 h-12 shrink-0 rounded-xl bg-dusk-blue/5 dark:bg-azure-mist/5 flex items-center justify-center text-dusk-blue/60 dark:text-azure-mist/60 group-hover:bg-dusk-blue group-hover:text-azure-mist dark:group-hover:bg-azure-mist dark:group-hover:text-dusk-blue shadow-sm border border-dusk-blue/10 dark:border-azure-mist/10 transition-all duration-500">
                     <Tag size={18} />
                   </div>
                   <div className="flex-1">
-                    <div className="text-[10px] font-black text-indigo/60 dark:text-vanilla/60 uppercase tracking-widest mb-1">
+                    <div className="text-[10px] font-black text-dusk-blue/60 dark:text-azure-mist/60 uppercase tracking-widest mb-1">
                       {new Date(tItem.date).toLocaleDateString('id-ID', { day: '2-digit', month: 'short' })} • {tItem.category}
                     </div>
-                    <p className="text-sm font-black text-indigo dark:text-vanilla group-hover:translate-x-1 transition-transform truncate max-w-[200px] sm:max-w-none">
+                    <p className="text-sm font-black text-dusk-blue dark:text-azure-mist group-hover:translate-x-1 transition-transform truncate max-w-[200px] sm:max-w-none">
                       {tItem.description || 'Untitled Transaction'}
                     </p>
                   </div>
                 </div>
                 
-                <div className="flex items-center justify-between sm:justify-end gap-8 w-full sm:w-auto mt-2 sm:mt-0 border-t sm:border-none border-indigo/5 dark:border-vanilla/5 pt-4 sm:pt-0">
+                <div className="flex items-center justify-between sm:justify-end gap-8 w-full sm:w-auto mt-2 sm:mt-0 border-t sm:border-none border-dusk-blue/5 dark:border-azure-mist/5 pt-4 sm:pt-0">
                   <div className={`text-xl font-black tracking-tight ${
-                    tItem.type === 'income' ? 'text-emerald-500' : 'text-indigo dark:text-vanilla'
+                    tItem.type === 'income' ? 'text-emerald-500' : 'text-dusk-blue dark:text-azure-mist'
                   }`}>
                     {tItem.type === 'income' ? '+' : '-'}{formatCurrency(tItem.amount)}
                   </div>
@@ -91,15 +91,15 @@ export function BentoTxList({ month }: { month: string }) {
           <button 
             disabled={page === 1}
             onClick={() => setPage(p => p - 1)}
-            className="modern-btn !py-3 !px-6 !text-[9px] disabled:opacity-20 !shadow-none border border-indigo/10 dark:border-vanilla/10 !bg-transparent !text-indigo dark:!text-vanilla hover:!bg-indigo/5 dark:hover:!bg-vanilla/5"
+            className="modern-btn !py-3 !px-6 !text-[9px] disabled:opacity-20 !shadow-none border border-dusk-blue/10 dark:border-azure-mist/10 !bg-transparent !text-dusk-blue dark:!text-azure-mist hover:!bg-dusk-blue/5 dark:hover:!bg-azure-mist/5"
           >
             Previous
           </button>
           <div className="flex flex-col items-center">
-            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-indigo/40 dark:text-vanilla/40 mb-1">
+            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-dusk-blue/40 dark:text-azure-mist/40 mb-1">
               {t('history')}
             </span>
-            <span className="text-[11px] font-black text-indigo dark:text-vanilla">
+            <span className="text-[11px] font-black text-dusk-blue dark:text-azure-mist">
               {page} / {totalPages}
             </span>
           </div>
@@ -114,7 +114,7 @@ export function BentoTxList({ month }: { month: string }) {
       )}
 
       <Dialog open={!!editTarget} onOpenChange={(open) => !open && setEditTarget(null)}>
-        <DialogContent className="max-w-2xl bg-white dark:bg-indigo-muted border border-indigo/10 dark:border-vanilla/10 p-0 rounded-[40px] overflow-hidden shadow-2xl">
+        <DialogContent className="max-w-2xl bg-white dark:bg-dusk-blue-muted border border-dusk-blue/10 dark:border-azure-mist/10 p-0 rounded-[40px] overflow-hidden shadow-2xl">
           <BentoAddCard transaction={editTarget ?? undefined} onSuccess={() => setEditTarget(null)} />
         </DialogContent>
       </Dialog>

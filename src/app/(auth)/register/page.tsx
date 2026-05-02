@@ -28,19 +28,19 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-vanilla dark:bg-indigo flex flex-col justify-center items-center p-6 transition-colors text-indigo dark:text-vanilla">
+    <div className="min-h-screen bg-azure-mist dark:bg-dusk-blue flex flex-col justify-center items-center p-6 transition-colors text-dusk-blue dark:text-azure-mist">
       {/* Lang Switcher */}
-      <div className="absolute top-8 right-8 flex bg-white/40 dark:bg-indigo-muted/40 backdrop-blur-md p-1 rounded-2xl border border-indigo/10 dark:border-vanilla/10">
-        <button onClick={() => setLanguage('id')} className={`px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${language === 'id' ? 'bg-indigo text-vanilla shadow-lg dark:bg-vanilla dark:text-indigo' : 'text-indigo/40 dark:text-vanilla/40'}`}>ID</button>
-        <button onClick={() => setLanguage('en')} className={`px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${language === 'en' ? 'bg-indigo text-vanilla shadow-lg dark:bg-vanilla dark:text-indigo' : 'text-indigo/40 dark:text-vanilla/40'}`}>EN</button>
+      <div className="absolute top-8 right-8 flex bg-white/40 dark:bg-dusk-blue-muted/40 backdrop-blur-md p-1 rounded-2xl border border-dusk-blue/10 dark:border-azure-mist/10">
+        <button onClick={() => setLanguage('id')} className={`px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${language === 'id' ? 'bg-dusk-blue text-azure-mist shadow-lg dark:bg-azure-mist dark:text-dusk-blue' : 'text-dusk-blue/40 dark:text-azure-mist/40'}`}>ID</button>
+        <button onClick={() => setLanguage('en')} className={`px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${language === 'en' ? 'bg-dusk-blue text-azure-mist shadow-lg dark:bg-azure-mist dark:text-dusk-blue' : 'text-dusk-blue/40 dark:text-azure-mist/40'}`}>EN</button>
       </div>
 
       <div className="w-full max-w-md">
         <div className="text-center mb-12">
           <Link href="/" className="inline-flex items-center justify-center gap-3 mb-8 group">
-            <img src="/image.png" alt="FinTrack AI Logo" className="w-16 h-16 rounded-2xl shadow-2xl shadow-indigo/20 group-hover:scale-110 transition-all duration-500 object-contain" />
+            <img src="/LogoNoBG.png" alt="Avaraé Logo" className="w-16 h-16 rounded-2xl shadow-2xl shadow-dusk-blue/20 group-hover:scale-110 transition-all duration-500 object-contain" />
             <div className="text-left">
-              <h1 className="text-2xl font-black uppercase tracking-tighter leading-none">FinTrack AI</h1>
+              <h1 className="text-2xl font-black uppercase tracking-tighter leading-none">Avaraé</h1>
               <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-40">Financial Freedom</span>
             </div>
           </Link>
@@ -50,43 +50,43 @@ export default function RegisterPage() {
         <div className="modern-card !p-8 sm:!p-12 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="space-y-3">
-              <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Nama Lengkap' : 'Full Name'}</label>
+              <label className="text-[10px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Nama Lengkap' : 'Full Name'}</label>
               <div className="relative">
-                <User className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
+                <User className="absolute left-0 top-1/2 -translate-y-1/2 text-dusk-blue/20 dark:text-azure-mist/20" size={18} />
                 <input
                   name="fullName"
                   type="text"
                   required
                   placeholder="John Doe"
-                  className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-bold placeholder:opacity-100"
+                  className="w-full bg-transparent border-b-2 border-dusk-blue/10 dark:border-azure-mist/10 rounded-none py-4 pl-10 pr-4 text-dusk-blue dark:text-azure-mist outline-none focus:border-dusk-blue dark:focus:border-azure-mist transition-all font-bold placeholder:opacity-100"
                 />
               </div>
             </div>
 
             <div className="space-y-3">
-              <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Email' : 'Email Address'}</label>
+              <label className="text-[10px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Email' : 'Email Address'}</label>
               <div className="relative">
-                <Mail className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
+                <Mail className="absolute left-0 top-1/2 -translate-y-1/2 text-dusk-blue/20 dark:text-azure-mist/20" size={18} />
                 <input
                   name="email"
                   type="email"
                   required
-                  placeholder="admin@fintrack.ai"
-                  className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-bold placeholder:opacity-100"
+                  placeholder="admin@avarae.ai"
+                  className="w-full bg-transparent border-b-2 border-dusk-blue/10 dark:border-azure-mist/10 rounded-none py-4 pl-10 pr-4 text-dusk-blue dark:text-azure-mist outline-none focus:border-dusk-blue dark:focus:border-azure-mist transition-all font-bold placeholder:opacity-100"
                 />
               </div>
             </div>
 
             <div className="space-y-3">
-              <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi' : 'Password'}</label>
+              <label className="text-[10px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi' : 'Password'}</label>
               <div className="relative">
-                <Lock className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
+                <Lock className="absolute left-0 top-1/2 -translate-y-1/2 text-dusk-blue/20 dark:text-azure-mist/20" size={18} />
                 <input
                   name="password"
                   type="password"
                   required
                   placeholder="••••••••"
-                  className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-bold placeholder:opacity-100"
+                  className="w-full bg-transparent border-b-2 border-dusk-blue/10 dark:border-azure-mist/10 rounded-none py-4 pl-10 pr-4 text-dusk-blue dark:text-azure-mist outline-none focus:border-dusk-blue dark:focus:border-azure-mist transition-all font-bold placeholder:opacity-100"
                 />
               </div>
             </div>
@@ -107,10 +107,10 @@ export default function RegisterPage() {
             </button>
           </form>
 
-          <div className="mt-12 pt-8 border-t border-indigo/5 dark:border-vanilla/5 text-center">
+          <div className="mt-12 pt-8 border-t border-dusk-blue/5 dark:border-azure-mist/5 text-center">
             <p className="text-xs font-medium opacity-60">
               {language === 'id' ? 'Sudah punya akun?' : "Already have an account?"}{' '}
-              <Link href="/login" className="text-indigo dark:text-vanilla font-black hover:underline uppercase tracking-widest text-[10px] ml-2">
+              <Link href="/login" className="text-dusk-blue dark:text-azure-mist font-black hover:underline uppercase tracking-widest text-[10px] ml-2">
                 {language === 'id' ? 'Masuk' : 'Login'}
               </Link>
             </p>

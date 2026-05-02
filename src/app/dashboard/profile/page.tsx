@@ -48,10 +48,10 @@ export default function ProfilePage() {
     <div className="max-w-4xl mx-auto">
       {/* Header */}
       <div className="mb-12">
-        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40 mb-4 block">
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-4 block">
           {language === 'id' ? 'Pengaturan Akun' : 'Account Settings'}
         </span>
-        <h1 className="text-6xl font-black uppercase tracking-tighter text-indigo dark:text-vanilla leading-none">
+        <h1 className="text-6xl font-black uppercase tracking-tighter text-dusk-blue dark:text-azure-mist leading-none">
           {language === 'id' ? 'Profil' : 'User'} <span className="opacity-40">{language === 'id' ? 'Pengguna' : 'Profile'}</span>
         </h1>
       </div>
@@ -61,23 +61,23 @@ export default function ProfilePage() {
         <div className="md:col-span-1 space-y-8">
           <div className="modern-card text-center p-10">
             <div className="relative inline-block mb-6">
-              <div className="w-24 h-24 rounded-full bg-indigo dark:bg-vanilla text-vanilla dark:text-indigo flex items-center justify-center text-3xl font-black shadow-2xl shadow-indigo/20">
+              <div className="w-24 h-24 rounded-full bg-dusk-blue dark:bg-azure-mist text-azure-mist dark:text-dusk-blue flex items-center justify-center text-3xl font-black shadow-2xl shadow-dusk-blue/20">
                 {user.fullName?.[0] || user.email[0]}
               </div>
-              <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-white dark:bg-indigo-muted border-2 border-vanilla dark:border-indigo flex items-center justify-center text-indigo dark:text-vanilla shadow-lg">
+              <div className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-white dark:bg-dusk-blue-muted border-2 border-azure-mist dark:border-dusk-blue flex items-center justify-center text-dusk-blue dark:text-azure-mist shadow-lg">
                 <Camera size={14} />
               </div>
             </div>
-            <h3 className="text-xl font-black text-indigo dark:text-vanilla uppercase tracking-tight mb-1">{user.fullName || 'User'}</h3>
-            <p className="text-[10px] font-bold text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest">{user.email}</p>
+            <h3 className="text-xl font-black text-dusk-blue dark:text-azure-mist uppercase tracking-tight mb-1">{user.fullName || 'User'}</h3>
+            <p className="text-[10px] font-bold text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest">{user.email}</p>
           </div>
 
-          <div className="modern-card p-8 bg-indigo/5 dark:bg-vanilla/5 border-dashed border-2 border-indigo/10 dark:border-vanilla/10">
-            <div className="flex items-center gap-4 text-indigo/60 dark:text-vanilla/60 mb-4">
+          <div className="modern-card p-8 bg-dusk-blue/5 dark:bg-azure-mist/5 border-dashed border-2 border-dusk-blue/10 dark:border-azure-mist/10">
+            <div className="flex items-center gap-4 text-dusk-blue/60 dark:text-azure-mist/60 mb-4">
               <Shield size={18} />
               <span className="text-[10px] font-black uppercase tracking-widest">Security Status</span>
             </div>
-            <p className="text-xs font-bold text-indigo/40 dark:text-vanilla/40 leading-relaxed uppercase">
+            <p className="text-xs font-bold text-dusk-blue/40 dark:text-azure-mist/40 leading-relaxed uppercase">
               {language === 'id' 
                 ? 'Akun Anda diverifikasi dan dilindungi dengan enkripsi AES-256.' 
                 : 'Your account is verified and protected with AES-256 encryption.'}
@@ -89,11 +89,11 @@ export default function ProfilePage() {
         <div className="md:col-span-2 space-y-8">
           {/* General Info */}
           <div className="modern-card">
-            <div className="flex items-center gap-4 mb-10 pb-6 border-b border-indigo/5 dark:border-vanilla/5">
-              <div className="p-3 bg-indigo/5 dark:bg-vanilla/5 rounded-xl text-indigo dark:text-vanilla">
+            <div className="flex items-center gap-4 mb-10 pb-6 border-b border-dusk-blue/5 dark:border-azure-mist/5">
+              <div className="p-3 bg-dusk-blue/5 dark:bg-azure-mist/5 rounded-xl text-dusk-blue dark:text-azure-mist">
                 <User size={18} />
               </div>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo/40 dark:text-vanilla/40">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-dusk-blue/40 dark:text-azure-mist/40">
                 {language === 'id' ? 'Informasi Umum' : 'General Information'}
               </h3>
             </div>
@@ -101,28 +101,28 @@ export default function ProfilePage() {
             <form onSubmit={handleUpdateProfile} className="space-y-8">
               <div className="grid grid-cols-1 gap-8">
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Nama Lengkap' : 'Full Name'}</label>
+                  <label className="text-[10px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Nama Lengkap' : 'Full Name'}</label>
                   <div className="relative">
-                    <User className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
+                    <User className="absolute left-0 top-1/2 -translate-y-1/2 text-dusk-blue/20 dark:text-azure-mist/20" size={18} />
                     <input
                       name="fullName"
                       defaultValue={user.fullName || ''}
                       required
-                      className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-black text-xl placeholder:opacity-20"
+                      className="w-full bg-transparent border-b-2 border-dusk-blue/10 dark:border-azure-mist/10 rounded-none py-4 pl-10 pr-4 text-dusk-blue dark:text-azure-mist outline-none focus:border-dusk-blue dark:focus:border-azure-mist transition-all font-black text-xl placeholder:opacity-20"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Email' : 'Email Address'}</label>
+                  <label className="text-[10px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Email' : 'Email Address'}</label>
                   <div className="relative">
-                    <Mail className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
+                    <Mail className="absolute left-0 top-1/2 -translate-y-1/2 text-dusk-blue/20 dark:text-azure-mist/20" size={18} />
                     <input
                       name="email"
                       type="email"
                       defaultValue={user.email}
                       required
-                      className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-black text-xl placeholder:opacity-20"
+                      className="w-full bg-transparent border-b-2 border-dusk-blue/10 dark:border-azure-mist/10 rounded-none py-4 pl-10 pr-4 text-dusk-blue dark:text-azure-mist outline-none focus:border-dusk-blue dark:focus:border-azure-mist transition-all font-black text-xl placeholder:opacity-20"
                     />
                   </div>
                 </div>
@@ -141,11 +141,11 @@ export default function ProfilePage() {
 
           {/* Password Info */}
           <div className="modern-card">
-            <div className="flex items-center gap-4 mb-10 pb-6 border-b border-indigo/5 dark:border-vanilla/5">
+            <div className="flex items-center gap-4 mb-10 pb-6 border-b border-dusk-blue/5 dark:border-azure-mist/5">
               <div className="p-3 bg-rose-500/5 rounded-xl text-rose-500">
                 <Lock size={18} />
               </div>
-              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-indigo/40 dark:text-vanilla/40">
+              <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-dusk-blue/40 dark:text-azure-mist/40">
                 {language === 'id' ? 'Ubah Kata Sandi' : 'Change Password'}
               </h3>
             </div>
@@ -153,21 +153,21 @@ export default function ProfilePage() {
             <form onSubmit={handleUpdatePassword} className="space-y-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi Lama' : 'Current Password'}</label>
+                  <label className="text-[10px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi Lama' : 'Current Password'}</label>
                   <input
                     name="currentPassword"
                     type="password"
                     required
-                    className="w-full bg-indigo/5 dark:bg-vanilla/5 border border-indigo/10 dark:border-vanilla/10 text-indigo dark:text-vanilla rounded-2xl p-4 text-xs font-bold outline-none focus:border-indigo dark:focus:border-vanilla transition-all"
+                    className="w-full bg-dusk-blue/5 dark:bg-azure-mist/5 border border-dusk-blue/10 dark:border-azure-mist/10 text-dusk-blue dark:text-azure-mist rounded-2xl p-4 text-xs font-bold outline-none focus:border-dusk-blue dark:focus:border-azure-mist transition-all"
                   />
                 </div>
                 <div className="space-y-3">
-                  <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi Baru' : 'New Password'}</label>
+                  <label className="text-[10px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Kata Sandi Baru' : 'New Password'}</label>
                   <input
                     name="newPassword"
                     type="password"
                     required
-                    className="w-full bg-indigo/5 dark:bg-vanilla/5 border border-indigo/10 dark:border-vanilla/10 text-indigo dark:text-vanilla rounded-2xl p-4 text-xs font-bold outline-none focus:border-indigo dark:focus:border-vanilla transition-all"
+                    className="w-full bg-dusk-blue/5 dark:bg-azure-mist/5 border border-dusk-blue/10 dark:border-azure-mist/10 text-dusk-blue dark:text-azure-mist rounded-2xl p-4 text-xs font-bold outline-none focus:border-dusk-blue dark:focus:border-azure-mist transition-all"
                   />
                 </div>
               </div>
@@ -175,7 +175,7 @@ export default function ProfilePage() {
               <button
                 type="submit"
                 disabled={pwLoading}
-                className="modern-btn !bg-indigo-muted !text-vanilla dark:!bg-vanilla dark:!text-indigo !px-10 py-5 active:scale-95 disabled:opacity-50"
+                className="modern-btn !bg-dusk-blue-muted !text-azure-mist dark:!bg-azure-mist dark:!text-dusk-blue !px-10 py-5 active:scale-95 disabled:opacity-50"
               >
                 {pwLoading ? <Loader2 className="animate-spin" /> : <Lock size={18} />}
                 {language === 'id' ? 'Perbarui Sandi' : 'Update Password'}

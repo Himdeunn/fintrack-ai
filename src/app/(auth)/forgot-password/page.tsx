@@ -30,15 +30,15 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen bg-vanilla dark:bg-indigo flex flex-col justify-center items-center p-6 transition-colors text-indigo dark:text-vanilla">
+    <div className="min-h-screen bg-azure-mist dark:bg-dusk-blue flex flex-col justify-center items-center p-6 transition-colors text-dusk-blue dark:text-azure-mist">
       <div className="w-full max-w-md">
         <div className="text-center mb-12">
-          <Link href="/login" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-indigo/40 dark:text-vanilla/40 hover:text-indigo dark:hover:text-vanilla transition-all mb-8 group">
+          <Link href="/login" className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-dusk-blue/40 dark:text-azure-mist/40 hover:text-dusk-blue dark:hover:text-azure-mist transition-all mb-8 group">
             <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
             {language === 'id' ? 'Kembali ke Masuk' : 'Back to Login'}
           </Link>
           
-          <img src="/image.png" alt="Logo" className="w-16 h-16 rounded-2xl mx-auto mb-8 shadow-2xl shadow-indigo/20 object-contain" />
+          <img src="/LogoNoBG.png" alt="Logo" className="w-16 h-16 rounded-2xl mx-auto mb-8 shadow-2xl shadow-dusk-blue/20 object-contain" />
           
           <h1 className="text-4xl font-black uppercase tracking-tighter leading-none mb-4">
             {language === 'id' ? 'Lupa' : 'Forgot'} <span className="opacity-40">{language === 'id' ? 'Sandi?' : 'Password?'}</span>
@@ -56,7 +56,7 @@ export default function ForgotPasswordPage() {
               <div className="w-16 h-16 bg-emerald-500/10 text-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-6">
                 <Mail size={32} />
               </div>
-              <h3 className="text-xl font-black uppercase tracking-tight text-indigo dark:text-vanilla mb-4">
+              <h3 className="text-xl font-black uppercase tracking-tight text-dusk-blue dark:text-azure-mist mb-4">
                 {language === 'id' ? 'Email Terkirim' : 'Email Sent'}
               </h3>
               <p className="text-sm font-bold opacity-60 uppercase tracking-widest leading-relaxed">
@@ -68,15 +68,15 @@ export default function ForgotPasswordPage() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="space-y-3">
-                <label className="text-[10px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Alamat Email' : 'Email Address'}</label>
+                <label className="text-[10px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest ml-1">{language === 'id' ? 'Alamat Email' : 'Email Address'}</label>
                 <div className="relative">
-                  <Mail className="absolute left-0 top-1/2 -translate-y-1/2 text-indigo/20 dark:text-vanilla/20" size={18} />
+                  <Mail className="absolute left-0 top-1/2 -translate-y-1/2 text-dusk-blue/20 dark:text-azure-mist/20" size={18} />
                   <input
                     name="email"
                     type="email"
                     required
                     placeholder="your@email.com"
-                    className="w-full bg-transparent border-b-2 border-indigo/10 dark:border-vanilla/10 rounded-none py-4 pl-10 pr-4 text-indigo dark:text-vanilla outline-none focus:border-indigo dark:focus:border-vanilla transition-all font-bold placeholder:opacity-100"
+                    className="w-full bg-transparent border-b-2 border-dusk-blue/10 dark:border-azure-mist/10 rounded-none py-4 pl-10 pr-4 text-dusk-blue dark:text-azure-mist outline-none focus:border-dusk-blue dark:focus:border-azure-mist transition-all font-bold placeholder:opacity-100"
                   />
                 </div>
               </div>

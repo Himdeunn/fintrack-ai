@@ -32,10 +32,10 @@ export default function DashboardPage() {
       <section className="mb-20">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
           <div>
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40 mb-4 block">
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-4 block">
               {t('summary')}
             </span>
-            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-indigo dark:text-vanilla">
+            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-dusk-blue dark:text-azure-mist">
               {currentMonthLabel.split(' ')[0]}<br/>
               <span className="opacity-20">{currentMonthLabel.split(' ')[1]}</span>
             </h1>
@@ -60,7 +60,7 @@ export default function DashboardPage() {
 
         <div className="col-span-12 lg:col-span-4">
           <div className="modern-card h-full flex flex-col">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40 mb-10 block">
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-10 block">
               {language === 'id' ? 'Kategori Teratas' : 'Top Categories'}
             </span>
             <div className="flex-1">

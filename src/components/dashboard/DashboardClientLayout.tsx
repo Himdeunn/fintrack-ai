@@ -10,7 +10,7 @@ export function DashboardClientLayout({ children }: { children: React.ReactNode 
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-vanilla dark:bg-indigo transition-colors selection:bg-indigo selection:text-vanilla">
+    <div className="min-h-screen bg-azure-mist dark:bg-dusk-blue transition-colors selection:bg-dusk-blue selection:text-azure-mist">
       <MainNavbar user={user} />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-12 lg:px-20 pt-32">
@@ -18,17 +18,17 @@ export function DashboardClientLayout({ children }: { children: React.ReactNode 
           {children}
         </main>
 
-        <footer className="mt-32 pb-20 pt-12 border-t border-indigo/10 dark:border-vanilla/10 flex flex-col md:flex-row justify-between items-center gap-12">
+        <footer className="mt-32 pb-20 pt-12 border-t border-dusk-blue/10 dark:border-azure-mist/10 flex flex-col md:flex-row justify-between items-center gap-12">
           <div className="flex flex-col items-center md:items-start gap-4">
             <div className="flex items-center gap-3">
-              <img src="/image.png" alt="FinTrack AI Logo" className="w-8 h-8 rounded-lg object-contain transition-all" />
-              <span className="text-xs font-black uppercase tracking-widest text-indigo dark:text-vanilla">FinTrack AI</span>
+              <img src="/LogoNoBG.png" alt="Avaraé Logo" className="w-8 h-8 rounded-lg object-contain transition-all" />
+              <span className="text-xs font-black uppercase tracking-widest text-dusk-blue dark:text-azure-mist">Avaraé</span>
             </div>
-            <p className="text-[9px] font-black text-indigo/40 dark:text-vanilla/40 uppercase tracking-[0.2em]">© 2026 Build for the future of finance.</p>
+            <p className="text-[9px] font-black text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-[0.2em]">© 2026 Build for the future of finance.</p>
           </div>
-          <div className="flex gap-12 text-[10px] font-black uppercase tracking-widest text-indigo/40 dark:text-vanilla/40">
-            <Link href="/terms" className="hover:text-indigo dark:hover:text-vanilla transition-colors">Terms</Link>
-            <Link href="/privacy" className="hover:text-indigo dark:hover:text-vanilla transition-colors">Privacy</Link>
+          <div className="flex gap-12 text-[10px] font-black uppercase tracking-widest text-dusk-blue/40 dark:text-azure-mist/40">
+            <Link href="/terms" className="hover:text-dusk-blue dark:hover:text-azure-mist transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-dusk-blue dark:hover:text-azure-mist transition-colors">Privacy</Link>
           </div>
         </footer>
       </div>

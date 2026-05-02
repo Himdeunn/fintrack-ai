@@ -16,7 +16,7 @@ export function DashboardSubNav() {
   ]
 
   return (
-    <div className="flex bg-indigo/5 dark:bg-vanilla/5 p-1.5 rounded-[24px] border border-indigo/10 dark:border-vanilla/10 mb-12 w-full lg:w-fit overflow-x-auto scrollbar-hide">
+    <div className="flex bg-dusk-blue/5 dark:bg-azure-mist/5 p-1.5 rounded-[24px] border border-dusk-blue/10 dark:border-azure-mist/10 mb-12 w-full lg:w-fit overflow-x-auto scrollbar-hide">
       <div className="flex min-w-max">
         {links.map((link) => {
           const isActive = pathname === link.href
@@ -26,8 +26,8 @@ export function DashboardSubNav() {
               href={link.href}
               className={`flex items-center gap-3 px-6 lg:px-8 py-3 rounded-[20px] text-[10px] font-black uppercase tracking-widest transition-all duration-500 whitespace-nowrap ${
                 isActive 
-                  ? 'bg-indigo text-vanilla dark:bg-vanilla dark:text-indigo shadow-xl shadow-indigo/20' 
-                  : 'text-indigo/40 dark:text-vanilla/40 hover:text-indigo dark:hover:text-vanilla'
+                  ? 'bg-dusk-blue text-azure-mist dark:bg-azure-mist dark:text-dusk-blue shadow-xl shadow-dusk-blue/20' 
+                  : 'text-dusk-blue/40 dark:text-azure-mist/40 hover:text-dusk-blue dark:hover:text-azure-mist'
               }`}
             >
               <link.icon size={14} />

@@ -16,14 +16,14 @@ export default function TransactionsPage() {
         <span className="text-rich-muted mb-4 block">
           {language === 'id' ? 'Manajemen Transaksi' : 'Transaction Management'}
         </span>
-        <h1 className="text-6xl font-black uppercase tracking-tighter text-indigo dark:text-vanilla leading-none">
+        <h1 className="text-6xl font-black uppercase tracking-tighter text-dusk-blue dark:text-azure-mist leading-none">
           {language === 'id' ? 'Riwayat' : 'Ledger'} <span>{language === 'id' ? 'Buku Besar' : 'History'}</span>
         </h1>
       </div>
 
       {/* Add Form */}
       <div className="col-span-12 lg:col-span-4">
-        <div className="modern-card bg-white dark:bg-indigo-muted !text-vanilla shadow-xl shadow-indigo/5 border-none lg:sticky lg:top-12 dark:!text-indigo">
+        <div className="modern-card bg-white dark:bg-dusk-blue-muted !text-azure-mist shadow-xl shadow-dusk-blue/5 border-none lg:sticky lg:top-12 dark:!text-dusk-blue">
            <BentoAddCard />
         </div>
       </div>

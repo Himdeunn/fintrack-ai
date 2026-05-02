@@ -5,10 +5,10 @@ import { Toaster } from 'sonner';
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FinTrack AI - Smart Finance Tracker",
+  title: "Avaraé - Smart Finance Architecture",
   description: "Manage your finances with Gemini AI insights and modern minimalist design.",
   icons: {
-    icon: "/favicon.png",
+    icon: "/LogoBG.png",
   },
 };
 
@@ -21,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="id" suppressHydrationWarning>
-      <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+      <link rel="shortcut icon" href="/LogoBG.png" type="image/png" />
       <body className="antialiased font-sans">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <LanguageProvider>

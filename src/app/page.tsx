@@ -11,14 +11,14 @@ export default function LandingPage() {
   const { user } = useUser()
 
   return (
-    <div className="min-h-screen bg-vanilla dark:bg-indigo text-indigo dark:text-vanilla transition-colors selection:bg-indigo selection:text-vanilla">
+    <div className="min-h-screen bg-azure-mist dark:bg-dusk-blue text-dusk-blue dark:text-azure-mist transition-colors selection:bg-dusk-blue selection:text-azure-mist">
       <MainNavbar user={user} />
 
       {/* Hero Section */}
       <main className="pt-40 pb-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center max-w-3xl mx-auto mb-20">
-            <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-indigo/5 dark:bg-vanilla/5 text-indigo dark:text-vanilla text-[10px] font-black uppercase tracking-widest border border-indigo/10 dark:border-vanilla/10 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
+            <div className="inline-flex items-center gap-2 px-6 py-2 rounded-full bg-dusk-blue/5 dark:bg-azure-mist/5 text-dusk-blue dark:text-azure-mist text-[10px] font-black uppercase tracking-widest border border-dusk-blue/10 dark:border-azure-mist/10 mb-8 animate-in fade-in slide-in-from-bottom-4 duration-1000">
               <Sparkles size={14} />
               {language === 'id' ? 'DIDUKUNG OLEH GEMINI AI' : 'POWERED BY GEMINI AI'}
             </div>
@@ -52,7 +52,7 @@ export default function LandingPage() {
               { icon: Shield, titleId: 'Keamanan Data', titleEn: 'Data Security', descId: 'Data Anda dienkripsi dan disimpan dengan aman menggunakan teknologi terbaru.', descEn: 'Your data is encrypted and safely stored using the latest technology.' },
             ].map((f, i) => (
               <div key={i} className="modern-card group">
-                <div className="w-14 h-14 bg-indigo/5 dark:bg-vanilla/5 rounded-2xl flex items-center justify-center text-indigo dark:text-vanilla mb-6 group-hover:bg-indigo group-hover:text-vanilla dark:group-hover:bg-vanilla dark:group-hover:text-indigo transition-all duration-500 shadow-sm border border-indigo/10 dark:border-vanilla/10">
+                <div className="w-14 h-14 bg-dusk-blue/5 dark:bg-azure-mist/5 rounded-2xl flex items-center justify-center text-dusk-blue dark:text-azure-mist mb-6 group-hover:bg-dusk-blue group-hover:text-azure-mist dark:group-hover:bg-azure-mist dark:group-hover:text-dusk-blue transition-all duration-500 shadow-sm border border-dusk-blue/10 dark:border-azure-mist/10">
                   <f.icon size={24} />
                 </div>
                 <h3 className="text-[10px] font-black uppercase tracking-widest mb-4 opacity-40">{language === 'id' ? f.titleId : f.titleEn}</h3>
@@ -64,16 +64,16 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-indigo/10 dark:border-vanilla/10 py-12 px-6">
+      <footer className="border-t border-dusk-blue/10 dark:border-azure-mist/10 py-12 px-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
           <div className="flex items-center gap-3">
-            <img src="/image.png" alt="FinTrack AI Logo" className="w-10 h-10 rounded-xl object-contain transition-all" />
-            <span className="font-black uppercase tracking-widest text-xs">FinTrack AI</span>
+            <img src="/LogoNoBG.png" alt="Avaraé Logo" className="w-10 h-10 rounded-xl object-contain transition-all" />
+            <span className="font-black uppercase tracking-widest text-xs">Avaraé</span>
           </div>
-          <div className="flex gap-12 text-[10px] font-black uppercase tracking-widest text-indigo/40 dark:text-vanilla/40">
-            <Link href="/terms" className="hover:text-indigo dark:hover:text-vanilla transition-colors">{language === 'id' ? 'Ketentuan' : 'Terms'}</Link>
-            <Link href="/privacy" className="hover:text-indigo dark:hover:text-vanilla transition-colors">{language === 'id' ? 'Privasi' : 'Privacy'}</Link>
-            <a href="#" className="hover:text-indigo dark:hover:text-vanilla transition-colors">GitHub</a>
+          <div className="flex gap-12 text-[10px] font-black uppercase tracking-widest text-dusk-blue/40 dark:text-azure-mist/40">
+            <Link href="/terms" className="hover:text-dusk-blue dark:hover:text-azure-mist transition-colors">{language === 'id' ? 'Ketentuan' : 'Terms'}</Link>
+            <Link href="/privacy" className="hover:text-dusk-blue dark:hover:text-azure-mist transition-colors">{language === 'id' ? 'Privasi' : 'Privacy'}</Link>
+            <a href="#" className="hover:text-dusk-blue dark:hover:text-azure-mist transition-colors">GitHub</a>
           </div>
         </div>
       </footer>

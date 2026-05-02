@@ -39,10 +39,10 @@ export function BentoBarChart({ transactions }: { transactions: Transaction[] })
   return (
     <div className="flex flex-col h-full">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-10 gap-6">
-        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/40 dark:text-vanilla/40">
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40">
           {language === 'id' ? 'Analisis Arus Kas' : 'Cashflow Analytics'}
         </span>
-        <div className="flex bg-indigo/5 dark:bg-vanilla/5 p-1.5 rounded-2xl border border-indigo/10 dark:border-vanilla/10 w-full sm:w-fit overflow-x-auto scrollbar-hide">
+        <div className="flex bg-dusk-blue/5 dark:bg-azure-mist/5 p-1.5 rounded-2xl border border-dusk-blue/10 dark:border-azure-mist/10 w-full sm:w-fit overflow-x-auto scrollbar-hide">
           <div className="flex min-w-max">
             {(['daily', 'weekly', 'monthly'] as const).map((p) => (
               <button
@@ -50,8 +50,8 @@ export function BentoBarChart({ transactions }: { transactions: Transaction[] })
                 onClick={() => setPeriod(p)}
                 className={`px-5 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all ${
                   period === p 
-                    ? 'bg-indigo text-vanilla dark:bg-vanilla dark:text-indigo shadow-lg' 
-                    : 'text-indigo/40 dark:text-vanilla/40 hover:text-indigo dark:hover:text-vanilla'
+                    ? 'bg-dusk-blue text-azure-mist dark:bg-azure-mist dark:text-dusk-blue shadow-lg' 
+                    : 'text-dusk-blue/40 dark:text-azure-mist/40 hover:text-dusk-blue dark:hover:text-azure-mist'
                 }`}
               >
                 {p === 'daily' ? (language === 'id' ? 'Harian' : 'Daily') : 
@@ -104,7 +104,7 @@ export function BentoBarChart({ transactions }: { transactions: Transaction[] })
           </ResponsiveContainer>
         ) : (
           <div className="h-full flex items-center justify-center">
-            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/20 dark:text-vanilla/20 italic animate-pulse">
+            <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/20 dark:text-azure-mist/20 italic animate-pulse">
               INITIALIZING_CORE...
             </span>
           </div>
@@ -162,16 +162,16 @@ export function BentoPieChart({ transactions }: { transactions: Transaction[] })
           {data.map((item, idx) => (
             <div key={item.name} className="group">
               <div className="flex justify-between items-end mb-2">
-                <span className="text-[10px] font-black uppercase tracking-widest text-indigo/40 dark:text-vanilla/40 group-hover:text-indigo dark:group-hover:text-vanilla transition-colors">
+                <span className="text-[10px] font-black uppercase tracking-widest text-dusk-blue/40 dark:text-azure-mist/40 group-hover:text-dusk-blue dark:group-hover:text-azure-mist transition-colors">
                   {item.name}
                 </span>
-                <span className="text-xs font-black text-indigo dark:text-vanilla">
+                <span className="text-xs font-black text-dusk-blue dark:text-azure-mist">
                   {formatCurrency(item.value)}
                 </span>
               </div>
-              <div className="h-1 bg-indigo/5 dark:bg-vanilla/5 rounded-full overflow-hidden">
+              <div className="h-1 bg-dusk-blue/5 dark:bg-azure-mist/5 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-indigo dark:bg-vanilla transition-all duration-1000"
+                  className="h-full bg-dusk-blue dark:bg-azure-mist transition-all duration-1000"
                   style={{ width: `${(item.value / data[0].value) * 100}%` }}
                 />
               </div>
@@ -184,14 +184,14 @@ export function BentoPieChart({ transactions }: { transactions: Transaction[] })
 
   return (
     <div className="flex-1 flex flex-col items-center justify-center gap-6 py-20">
-      <div className="w-16 h-16 rounded-[24px] bg-indigo/5 dark:bg-vanilla/5 flex items-center justify-center border border-indigo/10 dark:border-vanilla/10">
-        <div className="w-8 h-8 rounded-full border-2 border-dashed border-indigo/20 dark:border-vanilla/20 animate-spin" />
+      <div className="w-16 h-16 rounded-[24px] bg-dusk-blue/5 dark:bg-azure-mist/5 flex items-center justify-center border border-dusk-blue/10 dark:border-azure-mist/10">
+        <div className="w-8 h-8 rounded-full border-2 border-dashed border-dusk-blue/20 dark:border-azure-mist/20 animate-spin" />
       </div>
       <div className="text-center px-10">
-        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-indigo/20 dark:text-vanilla/20 italic block mb-2 text-center">
+        <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/20 dark:text-azure-mist/20 italic block mb-2 text-center">
           DATA_STREAM_EMPTY
         </span>
-        <p className="text-[9px] font-bold text-indigo/40 dark:text-vanilla/40 uppercase tracking-widest text-center leading-relaxed">
+        <p className="text-[9px] font-bold text-dusk-blue/40 dark:text-azure-mist/40 uppercase tracking-widest text-center leading-relaxed">
           Record some expenses to activate the analysis engine.
         </p>
       </div>
