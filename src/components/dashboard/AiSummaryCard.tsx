@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 
 export function BentoAiCard({ month }: { month: string }) {
   const { summary, loading, error, fetchSummary } = useAiSummary()
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [cooldown, setCooldown] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [efficiency, setEfficiency] = useState(0)

@@ -58,7 +58,7 @@ export async function POST(req: Request) {
 
     // 3. Prompt Engineering (PRD 5)
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
-    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" })
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
 
     const prompt = `Sebagai asisten keuangan pribadi yang cerdas dan ahli (Avaraé AI), analisalah data transaksi berikut: [ ${dataString} ]. 
 
@@ -83,6 +83,11 @@ export async function POST(req: Request) {
     return NextResponse.json({ summary: aiText })
   } catch (error: any) {
     console.error('AI Error:', error)
+    if (error.status === 429 || error.message?.includes('429')) {
+      return NextResponse.json({ 
+        error: 'Kuota AI Avaraé sedang penuh (Limit Free Tier). Silakan coba lagi dalam beberapa menit atau besok.' 
+      }, { status: 429 })
+    }
     return NextResponse.json({ error: error.message || 'Gagal sinkronisasi AI' }, { status: 500 })
   }
 }
