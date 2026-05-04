@@ -16,8 +16,8 @@ export default function TransactionsPage() {
         <span className="text-rich-muted mb-4 block">
           {language === 'id' ? 'Manajemen Transaksi' : 'Transaction Management'}
         </span>
-        <h1 className="text-6xl font-black uppercase tracking-tighter text-dusk-blue dark:text-azure-mist leading-none">
-          {language === 'id' ? 'Riwayat' : 'Ledger'} <span>{language === 'id' ? 'Buku Besar' : 'History'}</span>
+        <h1 className="text-5xl md:text-6xl font-black uppercase tracking-tighter text-dusk-blue dark:text-azure-mist leading-none">
+          {language === 'id' ? 'Riwayat' : 'Ledger'} <span className="opacity-40">{language === 'id' ? 'Buku Besar' : 'History'}</span>
         </h1>
       </div>
 

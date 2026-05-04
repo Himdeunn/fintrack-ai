@@ -18,22 +18,51 @@ export function BentoTxList({ month }: { month: string }) {
   const del = useDeleteTransaction()
   const [editTarget, setEditTarget] = useState<Transaction | null>(null)
   const [page, setPage] = useState(1)
+  const [filter, setFilter] = useState<'all' | 'income' | 'expense'>('all')
   const itemsPerPage = 5
 
   if (isLoading) return <div className="h-[600px] bg-dusk-blue/5 dark:bg-azure-mist/5 animate-pulse rounded-[40px]" />
 
-  const totalPages = Math.ceil(transactions.length / itemsPerPage)
-  const paginatedTransactions = transactions.slice((page - 1) * itemsPerPage, page * itemsPerPage)
+  // Sorting & Filtering Logic
+  const sortedAndFiltered = transactions
+    .filter(t => filter === 'all' ? true : t.type === filter)
+    .sort((a, b) => {
+      const dateA = new Date(a.date).getTime()
+      const dateB = new Date(b.date).getTime()
+      if (dateA !== dateB) return dateB - dateA
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    })
+
+  const totalPages = Math.ceil(sortedAndFiltered.length / itemsPerPage)
+  const paginatedTransactions = sortedAndFiltered.slice((page - 1) * itemsPerPage, page * itemsPerPage)
 
   return (
     <div className="flex flex-col h-full bg-white dark:bg-dusk-blue-muted rounded-[48px] border border-dusk-blue/5 dark:border-azure-mist/10 overflow-hidden shadow-2xl shadow-dusk-blue/5">
-      <div className="p-10 flex justify-between items-end bg-white dark:bg-dusk-blue-muted">
+      <div className="p-8 md:p-10 flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 bg-white dark:bg-dusk-blue-muted">
         <div>
           <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-2 block">{t('history')}</span>
-          <h3 className="text-4xl font-black uppercase tracking-tighter text-dusk-blue dark:text-azure-mist">{t('ledger')}</h3>
+          <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tighter text-dusk-blue dark:text-azure-mist leading-none">{t('ledger')}</h3>
         </div>
-        <div className="bg-dusk-blue/5 dark:bg-azure-mist/5 px-6 py-2 rounded-full border border-dusk-blue/10 dark:border-azure-mist/10 shadow-sm">
-          <span className="text-[10px] font-black uppercase tracking-widest text-dusk-blue/60 dark:text-azure-mist/60">{transactions.length} items</span>
+        
+        <div className="flex flex-col items-end gap-4 w-full sm:w-auto">
+          <div className="flex bg-dusk-blue/5 dark:bg-azure-mist/5 p-1 rounded-2xl border border-dusk-blue/10 dark:border-azure-mist/10 w-full sm:w-auto overflow-x-auto scrollbar-hide">
+            {(['all', 'income', 'expense'] as const).map((f) => (
+              <button
+                key={f}
+                onClick={() => { setFilter(f); setPage(1); }}
+                className={`px-5 py-2.5 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all whitespace-nowrap ${
+                  filter === f 
+                    ? 'bg-dusk-blue text-azure-mist shadow-lg shadow-dusk-blue/20 dark:bg-azure-mist dark:text-dusk-blue' 
+                    : 'text-dusk-blue/40 hover:text-dusk-blue dark:text-azure-mist/40 dark:hover:text-azure-mist'
+                }`}
+              >
+                {f === 'all' ? (language === 'id' ? 'SEMUA' : 'ALL') : (language === 'id' ? (f === 'income' ? 'MASUK' : 'KELUAR') : f.toUpperCase())}
+              </button>
+            ))}
+          </div>
+          <div className="bg-dusk-blue/5 dark:bg-azure-mist/5 px-6 py-2 rounded-full border border-dusk-blue/10 dark:border-azure-mist/10 shadow-sm hidden sm:block">
+            <span className="text-[10px] font-black uppercase tracking-widest text-dusk-blue/60 dark:text-azure-mist/60">{sortedAndFiltered.length} items</span>
+          </div>
         </div>
       </div>
 

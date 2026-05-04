@@ -35,7 +35,7 @@ export default function DashboardPage() {
             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-dusk-blue/40 dark:text-azure-mist/40 mb-4 block">
               {t('summary')}
             </span>
-            <h1 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] text-dusk-blue dark:text-azure-mist">
+            <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.9] md:leading-[0.85] text-dusk-blue dark:text-azure-mist">
               {currentMonthLabel.split(' ')[0]}<br/>
               <span className="opacity-20">{currentMonthLabel.split(' ')[1]}</span>
             </h1>

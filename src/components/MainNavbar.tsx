@@ -148,7 +148,7 @@ export function MainNavbar({ user }: { user?: User | null }) {
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
         <div className="lg:hidden absolute top-full left-0 right-0 mt-4 px-2 animate-in fade-in slide-in-from-top-4 duration-300">
-          <div className="bg-white/95 dark:bg-dusk-blue/95 backdrop-blur-xl border border-dusk-blue/10 dark:border-azure-mist/10 rounded-[2rem] p-4 shadow-2xl space-y-2">
+          <div className="bg-white/98 dark:bg-dusk-blue/98 backdrop-blur-3xl border border-dusk-blue/10 dark:border-azure-mist/10 rounded-[2rem] p-4 shadow-2xl space-y-2">
             {user ? (
               <>
                 {navLinks.map((link) => {
