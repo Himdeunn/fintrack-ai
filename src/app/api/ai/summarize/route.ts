@@ -51,19 +51,24 @@ export async function POST(req: Request) {
       return acc
     }, {} as TypeSummary)
 
-    const dataString = Object.entries(summaryData).map(([type, cats]) => {
-      const catDetails = Object.entries(cats).map(([cat, amt]) => `${cat}: ${amt}`).join(', ')
-      return `${type} -> ${catDetails}`
+    const dataString = transactions.map(t => {
+      const type = t.type.toLowerCase() === 'income' ? 'Pemasukan' : 'Pengeluaran'
+      return `[${type}] ${t.category}: ${t.amount} (${t.description || 'Tanpa deskripsi'})`
     }).join(' | ')
 
     // 3. Prompt Engineering (PRD 5)
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
-    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" })
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" })
 
-    const prompt = `Saya memiliki data keuangan berikut: [ ${dataString} ]. 
-    Berikan ringkasan dalam 2 kalimat dan 1 tips hemat yang spesifik. 
-    Gunakan nada bicara santai seperti teman tapi tetap profesional. 
-    Format output harus menggunakan markdown tebal pada poin-poin penting.`
+    const prompt = `Sebagai asisten keuangan pribadi yang cerdas dan ahli (Avaraé AI), analisalah data transaksi berikut: [ ${dataString} ]. 
+
+    Tugas Anda:
+    1. Berikan analisis singkat namun tajam mengenai pola pemasukan dan pengeluaran bulan ini.
+    2. Identifikasi potensi pemborosan berdasarkan deskripsi transaksi jika ada.
+    3. Berikan "Saran dan Solusi" konkret yang bisa langsung diterapkan pengguna untuk meningkatkan kesehatan finansial mereka.
+
+    Gunakan nada bicara yang elegan, premium, dan sangat membantu. Gunakan bahasa Indonesia yang baik namun tetap santai. 
+    Format output HARUS menggunakan markdown yang indah dengan poin-poin tebal pada bagian penting.`
 
     const result = await model.generateContent(prompt)
     const aiText = result.response.text()

@@ -22,6 +22,7 @@ export const metadata: Metadata = {
 };
 
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
+import { PwaInstallPrompt } from "@/components/PwaInstallPrompt";
 
 export default function RootLayout({
   children,
@@ -40,6 +41,7 @@ export default function RootLayout({
           <LanguageProvider>
             <QueryProvider>
               {children}
+              <PwaInstallPrompt />
               <Toaster richColors closeButton position="top-right" expand={false} mobileOffset={20} />
             </QueryProvider>
           </LanguageProvider>

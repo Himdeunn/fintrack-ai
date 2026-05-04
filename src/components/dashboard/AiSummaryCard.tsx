@@ -44,9 +44,25 @@ export function BentoAiCard({ month }: { month: string }) {
   }
 
   const renderMarkdown = (text: string) => {
-    return text.split('\n').map((line, i) => {
-      const formatted = line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-dusk-blue dark:text-azure-mist font-black">$1</strong>')
-      return <p key={i} className="sentence-rich mb-4 last:mb-0" dangerouslySetInnerHTML={{ __html: formatted }} />
+    // Check if there is a 'Saran' or 'Solusi' part to highlight it
+    const sections = text.split('\n\n')
+    return sections.map((section, i) => {
+      const isSolution = section.toLowerCase().includes('saran') || section.toLowerCase().includes('solusi')
+      const formatted = section.replace(/\*\*(.*?)\*\*/g, '<strong class="text-dusk-blue dark:text-azure-mist font-black">$1</strong>')
+      
+      if (isSolution) {
+        return (
+          <div key={i} className="p-6 bg-dusk-blue/5 dark:bg-azure-mist/5 border border-dusk-blue/10 dark:border-azure-mist/10 rounded-3xl mb-8 animate-in fade-in slide-in-from-bottom-4 transition-all hover:bg-dusk-blue/10 dark:hover:bg-azure-mist/10">
+            <div className="flex items-center gap-3 mb-4 text-dusk-blue dark:text-azure-mist">
+              <Sparkles size={16} />
+              <span className="text-[10px] font-black uppercase tracking-widest">{language === 'id' ? 'Saran & Solusi' : 'Advice & Solutions'}</span>
+            </div>
+            <div className="sentence-rich !text-dusk-blue/80 dark:!text-azure-mist/80" dangerouslySetInnerHTML={{ __html: formatted.replace(/\n/g, '<br/>') }} />
+          </div>
+        )
+      }
+
+      return <p key={i} className="sentence-rich mb-6 last:mb-0 px-2" dangerouslySetInnerHTML={{ __html: formatted.replace(/\n/g, '<br/>') }} />
     })
   }
 
