@@ -29,11 +29,11 @@ export function BentoBarChart({ transactions }: { transactions: Transaction[] })
   }, [])
 
   const colors = {
-    income: theme === 'dark' ? '#F0E7D5' : '#212842',
-    expense: '#f43f5e',
-    text: theme === 'dark' ? 'rgba(240, 231, 213, 0.4)' : 'rgba(33, 40, 66, 0.4)',
-    tooltipBg: theme === 'dark' ? '#2d3654' : '#ffffff',
-    tooltipBorder: theme === 'dark' ? 'rgba(240, 231, 213, 0.1)' : 'rgba(33, 40, 66, 0.1)',
+    income: theme === 'dark' ? '#F0FFFF' : '#26538D', // Azure Mist or Dusk Blue
+    expense: '#f43f5e', // Rose/Red for expense
+    text: theme === 'dark' ? 'rgba(240, 255, 255, 0.4)' : 'rgba(38, 83, 141, 0.4)',
+    tooltipBg: theme === 'dark' ? '#26538D' : '#ffffff',
+    tooltipBorder: theme === 'dark' ? 'rgba(240, 255, 255, 0.1)' : 'rgba(38, 83, 141, 0.1)',
   }
 
   return (
@@ -63,7 +63,7 @@ export function BentoBarChart({ transactions }: { transactions: Transaction[] })
         </div>
       </div>
 
-      <div className="w-full h-[350px] relative">
+      <div className="w-full h-[350px] min-h-[350px] relative">
         {mounted ? (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data} barGap={12}>
@@ -94,9 +94,9 @@ export function BentoBarChart({ transactions }: { transactions: Transaction[] })
                   boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
                   textTransform: 'uppercase',
                   letterSpacing: '0.1em',
-                  color: theme === 'dark' ? '#F0E7D5' : '#212842'
+                  color: theme === 'dark' ? '#F0FFFF' : '#26538D'
                 }}
-                itemStyle={{ color: theme === 'dark' ? '#F0E7D5' : '#212842' }}
+                itemStyle={{ color: theme === 'dark' ? '#F0FFFF' : '#26538D' }}
               />
               <Bar dataKey="income"  name={t('income').toUpperCase()} fill={colors.income} radius={[6, 6, 6, 6]} barSize={12} />
               <Bar dataKey="expense" name={t('expense').toUpperCase()} fill={colors.expense} radius={[6, 6, 6, 6]} barSize={12} />
@@ -126,15 +126,15 @@ export function BentoPieChart({ transactions }: { transactions: Transaction[] })
   }, [])
 
   const PIE_COLORS = theme === 'dark' 
-    ? ['#F0E7D5', '#34d399', '#fb7185', '#fbbf24', '#a78bfa', '#94a3b8']
-    : ['#212842', '#10b981', '#f43f5e', '#f59e0b', '#8b5cf6', '#64748b']
+    ? ['#F0FFFF', '#34d399', '#fb7185', '#fbbf24', '#a78bfa', '#94a3b8']
+    : ['#26538D', '#10b981', '#f43f5e', '#f59e0b', '#8b5cf6', '#64748b']
 
   // Fallback UI to check if data exists but chart fails
   if (mounted && data.length > 0) {
     return (
       <div className="flex flex-col h-full space-y-10">
         {/* The Pie Chart Container */}
-        <div className="h-[250px] w-full relative flex justify-center items-center">
+        <div className="h-[250px] min-h-[250px] w-full relative flex justify-center items-center">
            <ResponsiveContainer width="100%" height="100%">
              <PieChart>
                <Pie

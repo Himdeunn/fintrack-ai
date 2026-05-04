@@ -14,7 +14,7 @@ import { Tag, Trash2 } from 'lucide-react'
 
 export function BentoTxList({ month }: { month: string }) {
   const { data: transactions = [], isLoading } = useTransactions(month)
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const del = useDeleteTransaction()
   const [editTarget, setEditTarget] = useState<Transaction | null>(null)
   const [page, setPage] = useState(1)
