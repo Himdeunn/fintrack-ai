@@ -63,12 +63,14 @@ export async function POST(req: Request) {
     const prompt = `Sebagai asisten keuangan pribadi yang cerdas dan ahli (Avaraé AI), analisalah data transaksi berikut: [ ${dataString} ]. 
 
     Tugas Anda:
-    1. Berikan analisis singkat namun tajam mengenai pola pemasukan dan pengeluaran bulan ini.
-    2. Identifikasi potensi pemborosan berdasarkan deskripsi transaksi jika ada.
-    3. Berikan "Saran dan Solusi" konkret yang bisa langsung diterapkan pengguna untuk meningkatkan kesehatan finansial mereka.
+    1. Berikan analisis singkat mengenai pola pemasukan dan pengeluaran bulan ini.
+    2. Identifikasi potensi pemborosan secara spesifik.
+    3. Berikan "Saran dan Solusi" konkret untuk pengguna.
 
-    Gunakan nada bicara yang elegan, premium, dan sangat membantu. Gunakan bahasa Indonesia yang baik namun tetap santai. 
-    Format output HARUS menggunakan markdown yang indah dengan poin-poin tebal pada bagian penting.`
+    ATURAN PENTING:
+    - JANGAN gunakan format markdown seperti bintang (**), garis bawah (_), atau heading (#).
+    - Gunakan bahasa Indonesia yang elegan dan natural.
+    - Berikan jawaban dalam bentuk paragraf-paragraf terpisah tanpa simbol formatting.`
 
     const result = await model.generateContent(prompt)
     const aiText = result.response.text()

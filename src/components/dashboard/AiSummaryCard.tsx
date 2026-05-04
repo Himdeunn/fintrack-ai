@@ -43,26 +43,32 @@ export function BentoAiCard({ month }: { month: string }) {
     }
   }
 
-  const renderMarkdown = (text: string) => {
-    // Check if there is a 'Saran' or 'Solusi' part to highlight it
-    const sections = text.split('\n\n')
-    return sections.map((section, i) => {
-      const isSolution = section.toLowerCase().includes('saran') || section.toLowerCase().includes('solusi')
-      const formatted = section.replace(/\*\*(.*?)\*\*/g, '<strong class="text-dusk-blue dark:text-azure-mist font-black">$1</strong>')
+  const renderNaturalText = (text: string) => {
+    // Split by double newline to get paragraphs
+    const paragraphs = text.split('\n\n').filter(p => p.trim() !== '')
+    
+    return paragraphs.map((para, i) => {
+      const isSolution = para.toLowerCase().includes('saran') || para.toLowerCase().includes('solusi')
       
       if (isSolution) {
         return (
-          <div key={i} className="p-6 bg-dusk-blue/5 dark:bg-azure-mist/5 border border-dusk-blue/10 dark:border-azure-mist/10 rounded-3xl mb-8 animate-in fade-in slide-in-from-bottom-4 transition-all hover:bg-dusk-blue/10 dark:hover:bg-azure-mist/10">
-            <div className="flex items-center gap-3 mb-4 text-dusk-blue dark:text-azure-mist">
-              <Sparkles size={16} />
-              <span className="text-[10px] font-black uppercase tracking-widest">{language === 'id' ? 'Saran & Solusi' : 'Advice & Solutions'}</span>
+          <div key={i} className="p-6 bg-white dark:bg-dusk-blue-muted border-l-4 border-dusk-blue dark:border-azure-mist rounded-r-3xl rounded-l-lg mb-8 shadow-sm transition-all hover:shadow-md">
+            <div className="flex items-center gap-3 mb-3 text-dusk-blue dark:text-azure-mist">
+              <Sparkles size={14} className="opacity-60" />
+              <span className="text-[9px] font-black uppercase tracking-[0.2em]">{language === 'id' ? 'Rekomendasi Strategis' : 'Strategic Recommendations'}</span>
             </div>
-            <div className="sentence-rich !text-dusk-blue/80 dark:!text-azure-mist/80" dangerouslySetInnerHTML={{ __html: formatted.replace(/\n/g, '<br/>') }} />
+            <p className="text-sm font-medium leading-relaxed text-dusk-blue/80 dark:text-azure-mist/80">
+              {para}
+            </p>
           </div>
         )
       }
 
-      return <p key={i} className="sentence-rich mb-6 last:mb-0 px-2" dangerouslySetInnerHTML={{ __html: formatted.replace(/\n/g, '<br/>') }} />
+      return (
+        <p key={i} className="text-sm font-medium leading-relaxed text-dusk-blue/60 dark:text-azure-mist/60 mb-6 last:mb-0 px-2 border-l border-dusk-blue/5 dark:border-azure-mist/5">
+          {para}
+        </p>
+      )
     })
   }
 
@@ -143,8 +149,8 @@ export function BentoAiCard({ month }: { month: string }) {
               </div>
             </div>
 
-            <div className="space-y-3 px-2">
-              {renderMarkdown(summary)}
+            <div className="space-y-4 px-1">
+              {renderNaturalText(summary)}
             </div>
           </div>
         ) : (
