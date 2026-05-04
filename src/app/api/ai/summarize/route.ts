@@ -58,7 +58,7 @@ export async function POST(req: Request) {
 
     // 3. Prompt Engineering (PRD 5)
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!)
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" })
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" })
 
     const prompt = `Sebagai asisten keuangan pribadi yang cerdas dan ahli (Avaraé AI), analisalah data transaksi berikut: [ ${dataString} ]. 
 
