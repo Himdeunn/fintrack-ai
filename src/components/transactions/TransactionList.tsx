@@ -98,9 +98,9 @@ export function BentoTxList({ month }: { month: string }) {
                 
                 <div className="flex items-center justify-between sm:justify-end gap-8 w-full sm:w-auto mt-2 sm:mt-0 border-t sm:border-none border-dusk-blue/5 dark:border-azure-mist/5 pt-4 sm:pt-0">
                   <div className={`text-xl font-black tracking-tight ${
-                    tItem.type === 'income' ? 'text-emerald-500' : 'text-dusk-blue dark:text-azure-mist'
+                    tItem.type === 'INCOME' ? 'text-emerald-500' : 'text-dusk-blue dark:text-azure-mist'
                   }`}>
-                    {tItem.type === 'income' ? '+' : '-'}{formatCurrency(tItem.amount)}
+                    {tItem.type === 'INCOME' ? '+' : '-'}{formatCurrency(tItem.amount)}
                   </div>
                   <div 
                     className="p-3 text-rose-500 bg-rose-50 dark:bg-rose-950/20 hover:bg-rose-100 dark:hover:bg-rose-950/40 rounded-xl transition-all cursor-pointer" 
