@@ -25,7 +25,7 @@ export function BentoTxList({ month }: { month: string }) {
 
   // Sorting & Filtering Logic
   const sortedAndFiltered = transactions
-    .filter(t => filter === 'all' ? true : t.type === filter)
+    .filter(t => filter === 'all' ? true : t.type.toLowerCase() === filter.toLowerCase())
     .sort((a, b) => {
       const dateA = new Date(a.date).getTime()
       const dateB = new Date(b.date).getTime()

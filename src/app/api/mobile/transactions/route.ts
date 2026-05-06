@@ -24,7 +24,15 @@ export async function GET(req: Request) {
       orderBy: { date: 'desc' }
     })
 
-    return NextResponse.json(transactions)
+    // Map to ensure consistency with mobile expectations if needed
+    const formatted = transactions.map(t => ({
+      ...t,
+      type: t.type.toUpperCase(), // Standardize to UPPERCASE for mobile
+      date: t.date.toISOString(),
+      amount: Number(t.amount)
+    }))
+
+    return NextResponse.json(formatted)
   } catch (error: any) {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
   }
@@ -40,7 +48,7 @@ export async function POST(req: Request) {
     const transaction = await prisma.transaction.create({
       data: {
         amount: Number(data.amount),
-        type: data.type,
+        type: data.type.toUpperCase(), // Store as UPPERCASE for consistency
         category: data.category,
         description: data.description || '',
         date: new Date(data.date),

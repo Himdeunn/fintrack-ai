@@ -14,7 +14,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
       where: { id, userId: session.user.id },
       data: {
         amount: Number(data.amount),
-        type: data.type,
+        type: data.type.toUpperCase(),
         category: data.category,
         description: data.description || '',
         date: new Date(data.date),
