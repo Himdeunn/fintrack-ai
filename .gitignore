@@ -40,3 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 prd.txt
+AVARAE_API_ENDPOINTS.md
