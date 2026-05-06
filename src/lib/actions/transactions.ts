@@ -72,6 +72,6 @@ export async function getTransactions(month?: string) {
 
   return results.map(t => ({
     ...t,
-    type: t.type as 'income' | 'expense'
+    type: t.type as 'INCOME' | 'EXPENSE'
   }))
 }

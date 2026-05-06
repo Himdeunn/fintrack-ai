@@ -18,7 +18,7 @@ export function BentoTxList({ month }: { month: string }) {
   const del = useDeleteTransaction()
   const [editTarget, setEditTarget] = useState<Transaction | null>(null)
   const [page, setPage] = useState(1)
-  const [filter, setFilter] = useState<'all' | 'income' | 'expense'>('all')
+  const [filter, setFilter] = useState<'all' | 'INCOME' | 'EXPENSE'>('all')
   const itemsPerPage = 5
 
   if (isLoading) return <div className="h-[600px] bg-dusk-blue/5 dark:bg-azure-mist/5 animate-pulse rounded-[40px]" />
@@ -45,18 +45,18 @@ export function BentoTxList({ month }: { month: string }) {
         </div>
         
         <div className="flex flex-col items-end gap-4 w-full sm:w-auto">
-          <div className="flex bg-dusk-blue/5 dark:bg-azure-mist/5 p-1 rounded-2xl border border-dusk-blue/10 dark:border-azure-mist/10 w-full sm:w-auto overflow-x-auto scrollbar-hide">
-            {(['all', 'income', 'expense'] as const).map((f) => (
+          <div className="flex bg-dusk-blue/5 dark:bg-azure-mist/5 p-1 rounded-2xl border border-dusk-blue/10 dark:border-azure-mist/10 w-full sm:w-fit overflow-x-auto scrollbar-hide">
+            {['all', 'INCOME', 'EXPENSE'].map((f) => (
               <button
                 key={f}
-                onClick={() => { setFilter(f); setPage(1); }}
+                onClick={() => { setFilter(f as 'all' | 'INCOME' | 'EXPENSE'); setPage(1); }}
                 className={`px-5 py-2.5 text-[9px] font-black uppercase tracking-widest rounded-xl transition-all whitespace-nowrap ${
                   filter === f 
                     ? 'bg-dusk-blue text-azure-mist shadow-lg shadow-dusk-blue/20 dark:bg-azure-mist dark:text-dusk-blue' 
                     : 'text-dusk-blue/40 hover:text-dusk-blue dark:text-azure-mist/40 dark:hover:text-azure-mist'
                 }`}
               >
-                {f === 'all' ? (language === 'id' ? 'SEMUA' : 'ALL') : (language === 'id' ? (f === 'income' ? 'MASUK' : 'KELUAR') : f.toUpperCase())}
+                {f === 'all' ? (language === 'id' ? 'SEMUA' : 'ALL') : (language === 'id' ? (f === 'INCOME' ? 'MASUK' : 'KELUAR') : f.toUpperCase())}
               </button>
             ))}
           </div>

@@ -14,16 +14,16 @@ import { PlusCircle, Save, X } from 'lucide-react'
 
 export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => void; transaction?: Transaction }) {
   const { t } = useLanguage()
-  const [type, setType] = useState<TransactionType>(transaction?.type ?? 'expense')
+  const [type, setType] = useState<TransactionType>(transaction?.type ?? 'EXPENSE')
   const create = useCreateTransaction()
   const update = useUpdateTransaction()
-  const categories = type === 'income' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES
+  const categories = type === 'INCOME' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES
 
   const { register, handleSubmit, setValue, watch, reset } =
     useForm<TransactionFormData>({
       resolver: zodResolver(transactionSchema),
       defaultValues: {
-        type: transaction?.type ?? 'expense',
+        type: transaction?.type ?? 'EXPENSE',
         amount: transaction?.amount?.toString() ?? '',
         category: transaction?.category ?? '',
         description: transaction?.description ?? '',
@@ -38,7 +38,7 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
       } else {
         await create.mutateAsync(data)
         reset()
-        setType('expense')
+        setType('EXPENSE')
       }
       onSuccess?.()
     } catch (err) {
@@ -59,7 +59,7 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <div className="flex bg-dusk-blue/5 dark:bg-azure-mist/5 p-1 rounded-2xl border border-dusk-blue/10 dark:border-azure-mist/10">
-          {['expense', 'income'].map((tType) => (
+          {['EXPENSE', 'INCOME'].map((tType) => (
             <button
               key={tType}
               type="button"
@@ -70,7 +70,7 @@ export function BentoAddCard({ onSuccess, transaction }: { onSuccess?: () => voi
                   : "text-dusk-blue/40 dark:text-azure-mist/40 hover:text-dusk-blue dark:hover:text-azure-mist"
               }`}
             >
-              {t(tType)}
+              {t(tType.toLowerCase())}
             </button>
           ))}
         </div>
