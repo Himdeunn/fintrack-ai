@@ -1,6 +1,7 @@
 import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
+import { headers } from 'next/headers'
 
 const secretKey = 'finance-ai-secret-key-123' // Sebaiknya simpan di .env
 const key = new TextEncoder().encode(secretKey)
@@ -35,7 +36,16 @@ export async function logout() {
 
 export async function getSession() {
   const cookieStore = await cookies()
-  const session = cookieStore.get('session')?.value
+  let session = cookieStore.get('session')?.value
+  
+  if (!session) {
+    const headersList = await headers()
+    const authHeader = headersList.get('authorization')
+    if (authHeader?.startsWith('Bearer ')) {
+      session = authHeader.split(' ')[1]
+    }
+  }
+
   if (!session) return null
   return await decrypt(session)
 }
