@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { decrypt } from '@/lib/auth'
+import { decrypt, updateSession } from '@/lib/auth'
 
 export async function middleware(req: NextRequest) {
   const session = req.cookies.get('session')?.value
@@ -37,7 +37,7 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(url)
     }
 
-    return NextResponse.next()
+    return await updateSession(req) || NextResponse.next()
   } catch (error) {
     if (!isAuthPage && !isPublicPage) {
       const url = req.nextUrl.clone()

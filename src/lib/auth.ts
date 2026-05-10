@@ -3,14 +3,14 @@ import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 
-const secretKey = 'finance-ai-secret-key-123' // Sebaiknya simpan di .env
+const secretKey = process.env.AUTH_SECRET || 'finance-ai-default-secret-key-change-me'
 const key = new TextEncoder().encode(secretKey)
 
-export async function encrypt(payload: any) {
+export async function encrypt(payload: any, expiry: string | number = '2h') {
   return await new SignJWT(payload)
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('2h')
+    .setExpirationTime(expiry)
     .sign(key)
 }
 
@@ -26,7 +26,13 @@ export async function login(user: { id: string; email: string; fullName?: string
   const session = await encrypt({ user, expires })
 
   const cookieStore = await cookies()
-  cookieStore.set('session', session, { expires, httpOnly: true })
+  cookieStore.set('session', session, { 
+    expires, 
+    httpOnly: true, 
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/'
+  })
 }
 
 export async function logout() {
@@ -47,7 +53,11 @@ export async function getSession() {
   }
 
   if (!session) return null
-  return await decrypt(session)
+  try {
+    return await decrypt(session)
+  } catch (err) {
+    return null
+  }
 }
 
 export async function updateSession(request: NextRequest) {

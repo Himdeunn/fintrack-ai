@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     const token = await encrypt({ 
       user: { id: user.id, email: user.email, fullName: user.fullName }, 
       expires 
-    })
+    }, '7d')
 
     return NextResponse.json({ 
       token,
