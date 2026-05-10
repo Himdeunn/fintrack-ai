@@ -4,6 +4,14 @@ Semua pembaruan sistem, perbaikan bug, dan optimasi fitur dicatat di sini untuk 
 
 ---
 
+### [2026-05-10 | 12:30] - Mobile Auth Endpoints Deployment
+**Pembaruan:**
+- **Register API**: Menambahkan endpoint `/api/mobile/register` agar pengguna baru bisa mendaftar langsung dari aplikasi mobile.
+- **Forgot Password API**: Implementasi endpoint `/api/mobile/forgot-password` untuk pemulihan akun via email di perangkat mobile.
+- **Vercel Synchronization**: Sinkronisasi seluruh API mobile yang sebelumnya tertinggal (Untracked) ke server produksi.
+
+---
+
 ### [2026-05-10 | 12:15] - Auth Stability & Persistence Fix
 **Pembaruan:**
 - **Mobile Token Lifecycle**: Memperbaiki bug limitasi token JWT yang terkunci di 2 jam menjadi 7 hari (Sesuai kebutuhan Mobile Apps).
